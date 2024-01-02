@@ -110,7 +110,35 @@ function App() {
         <Square isSelected={turn === TURNS.O} index={-1} updateBoard={() => { }}>O</Square>
         <Square isSelected={turn === TURNS.X} index={-1} updateBoard={() => { }}>X</Square>
       </section>
-      {winner}
+      {
+        winner !== WINNERS.Process && (
+          <section className="winner">
+            <div className="text">
+              <h2>
+                {
+                  winner !== WINNERS.Draw
+                    ? "Winner:"
+                    : "Draw"
+                }
+              </h2>
+              <header className="win">
+                {
+                  winner !== WINNERS.Draw &&
+                  <Square
+                    index={-1}
+                    isSelected={false}
+                    updateBoard={() => { }}>
+                    {winner}
+                  </Square>
+                }
+              </header>
+              <footer>
+                <button>Start again</button>
+              </footer>
+            </div>
+          </section>
+        )
+      }
     </main>
   )
 }
