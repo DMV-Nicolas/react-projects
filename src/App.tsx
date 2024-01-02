@@ -72,6 +72,12 @@ function App() {
     return WINNERS.Process
   }
 
+  const resetGame = () => {
+    setBoard(Array(9).fill(""))
+    setTurn(TURNS.O)
+    setWinner(WINNERS.Process)
+  }
+
   const updateBoard = (index: number) => {
     // do not update if the square has something or if there is a winner
     if (board[index] != "" || winner != WINNERS.Process) return
@@ -133,7 +139,7 @@ function App() {
                 }
               </header>
               <footer>
-                <button>Start again</button>
+                <button onClick={resetGame}>Start again</button>
               </footer>
             </div>
           </section>
