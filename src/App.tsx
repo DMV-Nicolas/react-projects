@@ -8,14 +8,22 @@ import { WinnerModal } from './components/WinnerModal'
 import { GameBoard } from './components/GameBoard'
 
 function App() {
-  const [board, setBoard] = useState(Array(9).fill(""))
-  const [turn, setTurn] = useState(TURNS.O)
+  const [board, setBoard]: [string[], Function] = useState(() => {
+    const boardFromStorage = localStorage.getItem("board")
+    return boardFromStorage ? JSON.parse(boardFromStorage) : Array(9).fill("")
+  })
+  const [turn, setTurn] = useState(() => {
+    const turnFromStorage = localStorage.getItem("turn")
+    return turnFromStorage ?? TURNS.O
+  })
   const [winner, setWinner] = useState(WINNERS.Process)
 
   const resetGame = () => {
     setBoard(Array(9).fill(""))
     setTurn(TURNS.O)
     setWinner(WINNERS.Process)
+    localStorage.removeItem("board")
+    localStorage.removeItem("turn")
   }
 
   const updateBoard = (index: number) => {
@@ -27,13 +35,22 @@ function App() {
     newBoard[index] = turn
     setBoard(newBoard)
 
+    // change turn
+    const newTurn = turn === TURNS.O ? TURNS.X : TURNS.O
+    setTurn(newTurn)
+
+    // save game
+    localStorage.setItem("board", JSON.stringify(newBoard))
+    localStorage.setItem("turn", newTurn)
+
     // check winner
     const newWinner = checkWinner(newBoard)
     setWinner(newWinner)
-    if (newWinner === WINNERS.O || newWinner === WINNERS.X) confetti()
-
-    // change turn
-    setTurn(turn === TURNS.O ? TURNS.X : TURNS.O)
+    if (newWinner === WINNERS.O || newWinner === WINNERS.X) {
+      localStorage.removeItem("board")
+      localStorage.removeItem("turn")
+      confetti()
+    }
   }
 
   return (
