@@ -22,7 +22,7 @@ export function WinnerModal({ winner, resetGame }: WinnerModalParams) {
                         <Square
                             index={-1}
                             isSelected={false}
-                            updateBoard={() => { }}>
+                            updateBoard={() => null}>
                             {winner}
                         </Square>
                     </header>

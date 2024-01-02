@@ -5,7 +5,7 @@ import { Square } from './components/Square'
 import { checkWinner } from './logic/board'
 import { TURNS, WINNERS } from './constants'
 import { WinnerModal } from './components/WinnerModal'
-import { GameBoard } from "./components/GameBoard"
+import { GameBoard } from './components/GameBoard'
 
 function App() {
   const [board, setBoard] = useState(() => {
@@ -59,8 +59,8 @@ function App() {
       <button onClick={resetGame}>Reset game</button>
       <GameBoard board={board} updateBoard={updateBoard} />
       <section className="turn">
-        <Square isSelected={turn === TURNS.O} index={-1} updateBoard={() => { }}>{TURNS.O}</Square>
-        <Square isSelected={turn === TURNS.X} index={-1} updateBoard={() => { }}>{TURNS.X}</Square>
+        <Square isSelected={turn === TURNS.O} index={-1} updateBoard={() => null}>{TURNS.O}</Square>
+        <Square isSelected={turn === TURNS.X} index={-1} updateBoard={() => null}>{TURNS.X}</Square>
       </section>
       <WinnerModal winner={winner} resetGame={resetGame} />
     </main>
