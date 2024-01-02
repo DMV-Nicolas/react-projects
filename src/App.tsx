@@ -1,34 +1,55 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
 
-function App() {
-  const [count, setCount] = useState(0)
+type SquareParams = {
+  children: string
+  index: number
+  updateBoard: Function
+  isSelected: boolean
+}
+
+function Square({ children, index, updateBoard, isSelected }: SquareParams) {
+  const className = `square ${isSelected ? "is-selected" : ""}`
 
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    <div className={className}>
+      {children}
+    </div>
+  )
+}
+
+const TURNS = {
+  X: "x",
+  O: "o"
+}
+
+function App() {
+  const [board, setBoard] = useState(Array(9).fill(""))
+  const [turn, setTurn] = useState(TURNS.O)
+
+  return (
+    <main className="board">
+      <h1>Tic tac toe</h1>
+      <section className="game">
+        {
+          board.map((_, index) => {
+            return (
+              <Square
+                key={index}
+                index={index}
+                updateBoard={setBoard}
+                isSelected={false}>
+                {board[index]}
+              </Square>
+            )
+          })
+        }
+      </section>
+      <section className="turn">
+        <Square isSelected={turn === TURNS.O} index={-1} updateBoard={() => { }}>O</Square>
+        <Square isSelected={turn === TURNS.X} index={-1} updateBoard={() => { }}>X</Square>
+      </section>
+    </main>
   )
 }
 
