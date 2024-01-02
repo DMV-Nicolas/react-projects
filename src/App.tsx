@@ -34,62 +34,57 @@ const WINNERS = {
   O: "o",
 }
 
+const WIN_CHANCES = [
+  [0, 1, 2],
+  [3, 4, 5],
+  [6, 7, 8],
+  [0, 3, 6],
+  [1, 4, 7],
+  [2, 5, 8],
+  [0, 4, 8],
+  [2, 4, 6],
+]
+
 function App() {
   console.log("App 🎱")
   const [board, setBoard] = useState(Array(9).fill(""))
   const [turn, setTurn] = useState(TURNS.O)
   const [winner, setWinner] = useState(WINNERS.Process)
 
-  const checkWinner = (brd: string[]) => {
-    const winChances = [
-      ["w", "w", "w", "", "", "", "", "", ""],
-      ["", "", "", "w", "w", "w", "", "", ""],
-      ["", "", "", "", "", "", "w", "w", "w"],
-      ["w", "", "", "w", "", "", "w", "", ""],
-      ["", "w", "", "", "w", "", "", "w", ""],
-      ["", "", "w", "", "", "w", "", "", "w"],
-      ["w", "", "", "", "w", "", "", "", "w"],
-      ["", "", "w", "", "w", "", "w", "", ""],
-    ]
-
+  const checkWinner = (boardToCheck: string[]): string => {
     let isFull = true
-    for (const chance of winChances) {
-      let x = ["", "", ""]
-      let j = 0
-      for (const i in brd) {
-        if (brd[i] !== "" && chance[i] !== "") {
-          x[j] = brd[i]
-          j++
-        }
-
-        if (brd[i] === "") {
-          isFull = false
-        }
+    for (const chance of WIN_CHANCES) {
+      const [a, b, c] = chance
+      if (
+        boardToCheck[a] &&
+        boardToCheck[a] == boardToCheck[b] &&
+        boardToCheck[b] == boardToCheck[c]
+      ) {
+        return boardToCheck[a] // x u o
       }
 
-      console.log(x)
-
-      if (x[0] === TURNS.O && x[1] === TURNS.O && x[2] === TURNS.O) {
-        setWinner(WINNERS.O)
-        return
-      } else if (x[0] === TURNS.X && x[1] === TURNS.X && x[2] === TURNS.X) {
-        setWinner(WINNERS.X)
-        return
+      if (boardToCheck[a] == "" || boardToCheck[b] == "" || boardToCheck[c] == "") {
+        isFull = false
       }
     }
 
-    if (isFull) setWinner(WINNERS.Draw)
+    if (isFull) return WINNERS.Draw
+    return WINNERS.Process
   }
 
   const updateBoard = (index: number) => {
-    if (board[index] != "") return
+    // do not update if the square has something or if there is a winner
+    if (board[index] != "" || winner != WINNERS.Process) return
 
+    // update board
     const newBoard = [...board]
     newBoard[index] = turn
     setBoard(newBoard)
 
-    checkWinner(newBoard)
+    // check winner
+    setWinner(checkWinner(newBoard))
 
+    // change turn
     setTurn(turn === TURNS.O ? TURNS.X : TURNS.O)
   }
 
