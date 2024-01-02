@@ -5,10 +5,10 @@ import { Square } from './components/Square'
 import { checkWinner } from './logic/board'
 import { TURNS, WINNERS } from './constants'
 import { WinnerModal } from './components/WinnerModal'
-import { GameBoard } from './components/GameBoard'
+import { GameBoard } from "./components/GameBoard"
 
 function App() {
-  const [board, setBoard]: [string[], Function] = useState(() => {
+  const [board, setBoard] = useState(() => {
     const boardFromStorage = localStorage.getItem("board")
     return boardFromStorage ? JSON.parse(boardFromStorage) : Array(9).fill("")
   })
