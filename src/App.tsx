@@ -1,5 +1,8 @@
 import { useState } from 'react'
+import confetti from 'canvas-confetti'
 import './App.css'
+
+const sleep = (delay: number) => new Promise((resolve) => setTimeout(resolve, delay))
 
 type SquareParams = {
   children: string
@@ -52,7 +55,6 @@ function App() {
   const [winner, setWinner] = useState(WINNERS.Process)
 
   const checkWinner = (boardToCheck: string[]): string => {
-    let isFull = true
     for (const chance of WIN_CHANCES) {
       const [a, b, c] = chance
       if (
@@ -62,14 +64,13 @@ function App() {
       ) {
         return boardToCheck[a] // x u o
       }
-
-      if (boardToCheck[a] == "" || boardToCheck[b] == "" || boardToCheck[c] == "") {
-        isFull = false
-      }
     }
 
-    if (isFull) return WINNERS.Draw
-    return WINNERS.Process
+    if (boardToCheck.includes("")) {
+      return WINNERS.Process
+    }
+
+    return WINNERS.Draw
   }
 
   const resetGame = () => {
@@ -88,7 +89,16 @@ function App() {
     setBoard(newBoard)
 
     // check winner
-    setWinner(checkWinner(newBoard))
+    const newWinner = checkWinner(newBoard)
+    setWinner(newWinner)
+    if (newWinner === WINNERS.O || newWinner === WINNERS.X) {
+      (async () => {
+        for (let i = 0; i < 50; i++) {
+          await sleep(50)
+          confetti()
+        }
+      })()
+    }
 
     // change turn
     setTurn(turn === TURNS.O ? TURNS.X : TURNS.O)
@@ -97,16 +107,17 @@ function App() {
   return (
     <main className="board">
       <h1>Tic tac toe</h1>
+      <button onClick={resetGame}>Reset game</button>
       <section className="game">
         {
-          board.map((_, index) => {
+          board.map((square, index) => {
             return (
               <Square
                 key={index}
                 index={index}
                 isSelected={false}
                 updateBoard={updateBoard}>
-                {board[index]}
+                {square}
               </Square>
             )
           })
@@ -127,17 +138,17 @@ function App() {
                     : "Draw"
                 }
               </h2>
-              <header className="win">
-                {
-                  winner !== WINNERS.Draw &&
+              {
+                winner !== WINNERS.Draw &&
+                <header className="win">
                   <Square
                     index={-1}
                     isSelected={false}
                     updateBoard={() => { }}>
                     {winner}
                   </Square>
-                }
-              </header>
+                </header>
+              }
               <footer>
                 <button onClick={resetGame}>Start again</button>
               </footer>
