@@ -243,6 +243,54 @@ function getBlackBishopMoves(opt: Option, board: string[][]): Option[] {
     return opts
 }
 
+function getWhiteHorseMoves(opt: Option, board: string[][]): Option[] {
+    const opts: Option[] = [
+        { row: opt.row - 2, column: opt.column + 1 },
+        { row: opt.row - 1, column: opt.column + 2 },
+        { row: opt.row + 1, column: opt.column + 2 },
+        { row: opt.row + 2, column: opt.column + 1 },
+        { row: opt.row - 2, column: opt.column - 1 },
+        { row: opt.row - 1, column: opt.column - 2 },
+        { row: opt.row + 1, column: opt.column - 2 },
+        { row: opt.row + 2, column: opt.column - 1 }
+    ]
+
+    for (const opIndex in opts) {
+        const op = opts[opIndex]
+        if (
+            op.row < 0 || op.row >= board.length ||
+            op.column < 0 || op.column >= board.length
+        ) { delete (opts[opIndex]); continue }
+        if (getPieceColor(board[op.row][op.column]) === "white") delete (opts[opIndex])
+    }
+
+    return opts
+}
+
+function getBlackHorseMoves(opt: Option, board: string[][]): Option[] {
+    const opts: Option[] = [
+        { row: opt.row - 2, column: opt.column + 1 },
+        { row: opt.row - 1, column: opt.column + 2 },
+        { row: opt.row + 1, column: opt.column + 2 },
+        { row: opt.row + 2, column: opt.column + 1 },
+        { row: opt.row - 2, column: opt.column - 1 },
+        { row: opt.row - 1, column: opt.column - 2 },
+        { row: opt.row + 1, column: opt.column - 2 },
+        { row: opt.row + 2, column: opt.column - 1 }
+    ]
+
+    for (const opIndex in opts) {
+        const op = opts[opIndex]
+        if (
+            op.row < 0 || op.row >= board.length ||
+            op.column < 0 || op.column >= board.length
+        ) { delete (opts[opIndex]); continue }
+        if (getPieceColor(board[op.row][op.column]) === "black") delete (opts[opIndex])
+    }
+
+    return opts
+}
+
 export function getPieceMoves(piece: string, option: Option, board: string[][]): Option[] {
     if (piece === PIECES.White.Pawn) {
         return getWhitePawnMoves(option, board)
@@ -256,6 +304,10 @@ export function getPieceMoves(piece: string, option: Option, board: string[][]):
         return getWhiteBishopMoves(option, board)
     } else if (piece === PIECES.Black.Bishop) {
         return getBlackBishopMoves(option, board)
+    } else if (piece === PIECES.White.Horse) {
+        return getWhiteHorseMoves(option, board)
+    } else if (piece === PIECES.Black.Horse) {
+        return getBlackHorseMoves(option, board)
     }
 
     return [
@@ -277,10 +329,10 @@ export function getPieceMoves(piece: string, option: Option, board: string[][]):
 0  ⬜ 🟩 ⬜ 🟩 ⬜ 🟩 ⬜ 🟩 7
 8  🟩 ⬜ 🟩 ⬜ 🟩 ⬜ 🟩 ⬜ 15
 16 ⬜ 🟩 ⬜ 🟩 ⬜ 🟩 ⬜ 🟩 23
-24 🟩 ⬜ 🟩 ⬜ 🟩 ⬜ 🟩 ⬜ 31
-32 ⬜ 🟩 ⬜ 🟩 ⬜ 🟩 ⬜ 🟩 39
-40 🟩 ⬜ 🟩 ⬜ 🟩 ⬜ 🟩 ⬜ 47
-48 ⬜ 🟩 ⬜ 🟩 ⬜ 🟩 ⬜ 🟩 55
-56 🟩 ⬜ 🟩 ⬜ 🟩 ⬜ 🟩 ⬜ 63
+24 🟩 ⬜ 🟩 ⬜ XX ⬜ XX ⬜ 31
+32 ⬜ 🟩 ⬜ XX ⬜ 🟩 ⬜ XX 39
+40 🟩 ⬜ 🟩 ⬜ 🟩 XX 🟩 ⬜ 47
+48 ⬜ 🟩 ⬜ XX ⬜ 🟩 ⬜ XX 55
+56 🟩 ⬜ 🟩 ⬜ XX ⬜ XX ⬜ 63
 
 */
