@@ -135,6 +135,114 @@ function getBlackRookMoves(opt: Option, board: string[][]): Option[] {
     return opts
 }
 
+function getWhiteBishopMoves(opt: Option, board: string[][]): Option[] {
+    const opts: Option[] = []
+
+    // up left
+    let row = opt.row
+    let column = opt.column
+    while (row > 0 && column > 0) {
+        row--
+        column--
+        const opt1: Option = { row: row, column: column }
+        if (getPieceColor(board[opt1.row][opt1.column]) === "black") { opts.push(opt1); break }
+        if (getPieceColor(board[opt1.row][opt1.column]) === "white") break
+        opts.push(opt1)
+    }
+
+    // up right
+    row = opt.row
+    column = opt.column
+    while (row > 0 && column < board.length - 1) {
+        row--
+        column++
+        const opt1: Option = { row: row, column: column }
+        if (getPieceColor(board[opt1.row][opt1.column]) === "black") { opts.push(opt1); break }
+        if (getPieceColor(board[opt1.row][opt1.column]) === "white") break
+        opts.push(opt1)
+    }
+
+    // down left
+    row = opt.row
+    column = opt.column
+    while (row < board.length - 1 && column > 0) {
+        row++
+        column--
+        const opt1: Option = { row: row, column: column }
+        if (getPieceColor(board[opt1.row][opt1.column]) === "black") { opts.push(opt1); break }
+        if (getPieceColor(board[opt1.row][opt1.column]) === "white") break
+        opts.push(opt1)
+    }
+
+    // down right
+    row = opt.row
+    column = opt.column
+    while (row < board.length - 1 && column < board.length - 1) {
+        row++
+        column++
+        const opt1: Option = { row: row, column: column }
+        if (getPieceColor(board[opt1.row][opt1.column]) === "black") { opts.push(opt1); break }
+        if (getPieceColor(board[opt1.row][opt1.column]) === "white") break
+        opts.push(opt1)
+    }
+
+    return opts
+}
+
+function getBlackBishopMoves(opt: Option, board: string[][]): Option[] {
+    const opts: Option[] = []
+
+    // up left
+    let row = opt.row
+    let column = opt.column
+    while (row > 0 && column > 0) {
+        row--
+        column--
+        const opt1: Option = { row: row, column: column }
+        if (getPieceColor(board[opt1.row][opt1.column]) === "white") { opts.push(opt1); break }
+        if (getPieceColor(board[opt1.row][opt1.column]) === "black") break
+        opts.push(opt1)
+    }
+
+    // up right
+    row = opt.row
+    column = opt.column
+    while (row > 0 && column < board.length - 1) {
+        row--
+        column++
+        const opt1: Option = { row: row, column: column }
+        if (getPieceColor(board[opt1.row][opt1.column]) === "white") { opts.push(opt1); break }
+        if (getPieceColor(board[opt1.row][opt1.column]) === "black") break
+        opts.push(opt1)
+    }
+
+    // down left
+    row = opt.row
+    column = opt.column
+    while (row < board.length - 1 && column > 0) {
+        row++
+        column--
+        const opt1: Option = { row: row, column: column }
+        if (getPieceColor(board[opt1.row][opt1.column]) === "white") { opts.push(opt1); break }
+        if (getPieceColor(board[opt1.row][opt1.column]) === "black") break
+        opts.push(opt1)
+    }
+
+    // down right
+    row = opt.row
+    column = opt.column
+    while (row < board.length - 1 && column < board.length - 1) {
+        row++
+        column++
+        const opt1: Option = { row: row, column: column }
+        if (getPieceColor(board[opt1.row][opt1.column]) === "white") { opts.push(opt1); break }
+        if (getPieceColor(board[opt1.row][opt1.column]) === "black") break
+        opts.push(opt1)
+    }
+
+    return opts
+}
+
 export function getPieceMoves(piece: string, option: Option, board: string[][]): Option[] {
     if (piece === PIECES.White.Pawn) {
         return getWhitePawnMoves(option, board)
@@ -144,6 +252,10 @@ export function getPieceMoves(piece: string, option: Option, board: string[][]):
         return getWhiteRookMoves(option, board)
     } else if (piece === PIECES.Black.Rook) {
         return getBlackRookMoves(option, board)
+    } else if (piece === PIECES.White.Bishop) {
+        return getWhiteBishopMoves(option, board)
+    } else if (piece === PIECES.Black.Bishop) {
+        return getBlackBishopMoves(option, board)
     }
 
     return [
