@@ -29,7 +29,7 @@ function App() {
         column = parseInt(columnStr)
       }
 
-      const options = getPieceMoves(PIECES.White.Rook, { row, column }, newBoard)
+      const options = getPieceMoves(PIECES.Black.Rook, { row, column }, newBoard)
 
       for (const opt of options) {
         if (opt === null || opt === undefined) continue
