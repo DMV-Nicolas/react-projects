@@ -72,18 +72,16 @@ body {
 }
 
 .square {
-    width: 70px;
-    height: 70px;
+    width: 80px;
+    height: 80px;
     display: grid;
     place-items: center;
     cursor: pointer;
     font-size: 48px;
-    z-index: 10;
 }
 
 .square img {
     width: 100%;
-    z-index: 0;
 }
 
 .turn .square,
@@ -97,6 +95,10 @@ body {
 .square.is-selected {
     color: #fff;
     background: #09f;
+}
+
+.selected {
+    background-color: #bbcc44 !important
 }
 
 .green {

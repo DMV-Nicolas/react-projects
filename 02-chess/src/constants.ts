@@ -1,5 +1,6 @@
 export const PIECES = {
     White: {
+        Color: "white",
         Pawn: "WPawn.svg",
         Rook: "WRook.svg",
         Horse: "WHorse.svg",
@@ -8,6 +9,7 @@ export const PIECES = {
         King: "WKing.svg",
     },
     Black: {
+        Color: "black",
         Pawn: "BPawn.svg",
         Rook: "BRook.svg",
         Horse: "BHorse.svg",

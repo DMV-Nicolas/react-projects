@@ -4,8 +4,8 @@ import { Option } from "./types"
 function getPieceColor(piece: string): string {
     if (piece === undefined || piece === null || piece.length == 0) return ""
 
-    if (piece[0] == "W") return "white"
-    else if (piece[0] == "B") return "black"
+    if (piece[0] == "W") return PIECES.White.Color
+    else if (piece[0] == "B") return PIECES.Black.Color
     return ""
 }
 
@@ -19,10 +19,10 @@ function getWhitePawnMoves(opt: Option, board: string[][]): Option[] {
     if (opt.row === 6 && board[opt1.row][opt1.column] === PIECES.Empty && board[opt2.row][opt2.column] === PIECES.Empty) opts.push(opt2)
 
     const opt3: Option = { row: opt.row - 1, column: opt.column - 1 }
-    if (opt3.row >= 0 && getPieceColor(board[opt3.row][opt3.column]) === "black") opts.push(opt3)
+    if (opt3.row >= 0 && getPieceColor(board[opt3.row][opt3.column]) === PIECES.Black.Color) opts.push(opt3)
 
     const opt4: Option = { row: opt.row - 1, column: opt.column + 1 }
-    if (opt4.row >= 0 && getPieceColor(board[opt4.row][opt4.column]) === "black") opts.push(opt4)
+    if (opt4.row >= 0 && getPieceColor(board[opt4.row][opt4.column]) === PIECES.Black.Color) opts.push(opt4)
 
     return opts
 }
@@ -37,10 +37,10 @@ function getBlackPawnMoves(opt: Option, board: string[][]): Option[] {
     if (opt.row === 1 && board[opt1.row][opt1.column] === PIECES.Empty && board[opt2.row][opt2.column] === PIECES.Empty) opts.push(opt2)
 
     const opt3: Option = { row: opt.row + 1, column: opt.column - 1 }
-    if (opt3.row < board.length && getPieceColor(board[opt3.row][opt3.column]) === "white") opts.push(opt3)
+    if (opt3.row < board.length && getPieceColor(board[opt3.row][opt3.column]) === PIECES.White.Color) opts.push(opt3)
 
     const opt4: Option = { row: opt.row + 1, column: opt.column + 1 }
-    if (opt4.row < board.length && getPieceColor(board[opt4.row][opt4.column]) === "white") opts.push(opt4)
+    if (opt4.row < board.length && getPieceColor(board[opt4.row][opt4.column]) === PIECES.White.Color) opts.push(opt4)
 
     return opts
 }
@@ -53,8 +53,8 @@ function getWhiteRookMoves(opt: Option, board: string[][]): Option[] {
     while (cell > 0) {
         cell--
         const opt1: Option = { row: opt.row, column: cell }
-        if (getPieceColor(board[opt1.row][opt1.column]) === "black") { opts.push(opt1); break }
-        if (getPieceColor(board[opt1.row][opt1.column]) === "white") break
+        if (getPieceColor(board[opt1.row][opt1.column]) === PIECES.Black.Color) { opts.push(opt1); break }
+        if (getPieceColor(board[opt1.row][opt1.column]) === PIECES.White.Color) break
         opts.push(opt1)
     }
 
@@ -63,8 +63,8 @@ function getWhiteRookMoves(opt: Option, board: string[][]): Option[] {
     while (cell < board.length - 1) {
         cell++
         const opt1: Option = { row: opt.row, column: cell }
-        if (getPieceColor(board[opt1.row][opt1.column]) === "black") { opts.push(opt1); break }
-        if (getPieceColor(board[opt1.row][opt1.column]) === "white") break
+        if (getPieceColor(board[opt1.row][opt1.column]) === PIECES.Black.Color) { opts.push(opt1); break }
+        if (getPieceColor(board[opt1.row][opt1.column]) === PIECES.White.Color) break
         opts.push(opt1)
     }
 
@@ -73,8 +73,8 @@ function getWhiteRookMoves(opt: Option, board: string[][]): Option[] {
     while (cell > 0) {
         cell--
         const opt1: Option = { row: cell, column: opt.column }
-        if (getPieceColor(board[opt1.row][opt1.column]) === "black") { opts.push(opt1); break }
-        if (getPieceColor(board[opt1.row][opt1.column]) === "white") break
+        if (getPieceColor(board[opt1.row][opt1.column]) === PIECES.Black.Color) { opts.push(opt1); break }
+        if (getPieceColor(board[opt1.row][opt1.column]) === PIECES.White.Color) break
         opts.push(opt1)
     }
 
@@ -83,8 +83,8 @@ function getWhiteRookMoves(opt: Option, board: string[][]): Option[] {
     while (cell < board.length - 1) {
         cell++
         const opt1: Option = { row: cell, column: opt.column }
-        if (getPieceColor(board[opt1.row][opt1.column]) === "black") { opts.push(opt1); break }
-        if (getPieceColor(board[opt1.row][opt1.column]) === "white") break
+        if (getPieceColor(board[opt1.row][opt1.column]) === PIECES.Black.Color) { opts.push(opt1); break }
+        if (getPieceColor(board[opt1.row][opt1.column]) === PIECES.White.Color) break
         opts.push(opt1)
     }
     return opts
@@ -98,8 +98,8 @@ function getBlackRookMoves(opt: Option, board: string[][]): Option[] {
     while (cell > 0) {
         cell--
         const opt1: Option = { row: opt.row, column: cell }
-        if (getPieceColor(board[opt1.row][opt1.column]) === "white") { opts.push(opt1); break }
-        if (getPieceColor(board[opt1.row][opt1.column]) === "black") break
+        if (getPieceColor(board[opt1.row][opt1.column]) === PIECES.White.Color) { opts.push(opt1); break }
+        if (getPieceColor(board[opt1.row][opt1.column]) === PIECES.Black.Color) break
         opts.push(opt1)
     }
 
@@ -108,8 +108,8 @@ function getBlackRookMoves(opt: Option, board: string[][]): Option[] {
     while (cell < board.length - 1) {
         cell++
         const opt1: Option = { row: opt.row, column: cell }
-        if (getPieceColor(board[opt1.row][opt1.column]) === "white") { opts.push(opt1); break }
-        if (getPieceColor(board[opt1.row][opt1.column]) === "black") break
+        if (getPieceColor(board[opt1.row][opt1.column]) === PIECES.White.Color) { opts.push(opt1); break }
+        if (getPieceColor(board[opt1.row][opt1.column]) === PIECES.Black.Color) break
         opts.push(opt1)
     }
 
@@ -118,8 +118,8 @@ function getBlackRookMoves(opt: Option, board: string[][]): Option[] {
     while (cell > 0) {
         cell--
         const opt1: Option = { row: cell, column: opt.column }
-        if (getPieceColor(board[opt1.row][opt1.column]) === "white") { opts.push(opt1); break }
-        if (getPieceColor(board[opt1.row][opt1.column]) === "black") break
+        if (getPieceColor(board[opt1.row][opt1.column]) === PIECES.White.Color) { opts.push(opt1); break }
+        if (getPieceColor(board[opt1.row][opt1.column]) === PIECES.Black.Color) break
         opts.push(opt1)
     }
 
@@ -128,8 +128,8 @@ function getBlackRookMoves(opt: Option, board: string[][]): Option[] {
     while (cell < board.length - 1) {
         cell++
         const opt1: Option = { row: cell, column: opt.column }
-        if (getPieceColor(board[opt1.row][opt1.column]) === "white") { opts.push(opt1); break }
-        if (getPieceColor(board[opt1.row][opt1.column]) === "black") break
+        if (getPieceColor(board[opt1.row][opt1.column]) === PIECES.White.Color) { opts.push(opt1); break }
+        if (getPieceColor(board[opt1.row][opt1.column]) === PIECES.Black.Color) break
         opts.push(opt1)
     }
     return opts
@@ -145,8 +145,8 @@ function getWhiteBishopMoves(opt: Option, board: string[][]): Option[] {
         row--
         column--
         const opt1: Option = { row: row, column: column }
-        if (getPieceColor(board[opt1.row][opt1.column]) === "black") { opts.push(opt1); break }
-        if (getPieceColor(board[opt1.row][opt1.column]) === "white") break
+        if (getPieceColor(board[opt1.row][opt1.column]) === PIECES.Black.Color) { opts.push(opt1); break }
+        if (getPieceColor(board[opt1.row][opt1.column]) === PIECES.White.Color) break
         opts.push(opt1)
     }
 
@@ -157,8 +157,8 @@ function getWhiteBishopMoves(opt: Option, board: string[][]): Option[] {
         row--
         column++
         const opt1: Option = { row: row, column: column }
-        if (getPieceColor(board[opt1.row][opt1.column]) === "black") { opts.push(opt1); break }
-        if (getPieceColor(board[opt1.row][opt1.column]) === "white") break
+        if (getPieceColor(board[opt1.row][opt1.column]) === PIECES.Black.Color) { opts.push(opt1); break }
+        if (getPieceColor(board[opt1.row][opt1.column]) === PIECES.White.Color) break
         opts.push(opt1)
     }
 
@@ -169,8 +169,8 @@ function getWhiteBishopMoves(opt: Option, board: string[][]): Option[] {
         row++
         column--
         const opt1: Option = { row: row, column: column }
-        if (getPieceColor(board[opt1.row][opt1.column]) === "black") { opts.push(opt1); break }
-        if (getPieceColor(board[opt1.row][opt1.column]) === "white") break
+        if (getPieceColor(board[opt1.row][opt1.column]) === PIECES.Black.Color) { opts.push(opt1); break }
+        if (getPieceColor(board[opt1.row][opt1.column]) === PIECES.White.Color) break
         opts.push(opt1)
     }
 
@@ -181,8 +181,8 @@ function getWhiteBishopMoves(opt: Option, board: string[][]): Option[] {
         row++
         column++
         const opt1: Option = { row: row, column: column }
-        if (getPieceColor(board[opt1.row][opt1.column]) === "black") { opts.push(opt1); break }
-        if (getPieceColor(board[opt1.row][opt1.column]) === "white") break
+        if (getPieceColor(board[opt1.row][opt1.column]) === PIECES.Black.Color) { opts.push(opt1); break }
+        if (getPieceColor(board[opt1.row][opt1.column]) === PIECES.White.Color) break
         opts.push(opt1)
     }
 
@@ -199,8 +199,8 @@ function getBlackBishopMoves(opt: Option, board: string[][]): Option[] {
         row--
         column--
         const opt1: Option = { row: row, column: column }
-        if (getPieceColor(board[opt1.row][opt1.column]) === "white") { opts.push(opt1); break }
-        if (getPieceColor(board[opt1.row][opt1.column]) === "black") break
+        if (getPieceColor(board[opt1.row][opt1.column]) === PIECES.White.Color) { opts.push(opt1); break }
+        if (getPieceColor(board[opt1.row][opt1.column]) === PIECES.Black.Color) break
         opts.push(opt1)
     }
 
@@ -211,8 +211,8 @@ function getBlackBishopMoves(opt: Option, board: string[][]): Option[] {
         row--
         column++
         const opt1: Option = { row: row, column: column }
-        if (getPieceColor(board[opt1.row][opt1.column]) === "white") { opts.push(opt1); break }
-        if (getPieceColor(board[opt1.row][opt1.column]) === "black") break
+        if (getPieceColor(board[opt1.row][opt1.column]) === PIECES.White.Color) { opts.push(opt1); break }
+        if (getPieceColor(board[opt1.row][opt1.column]) === PIECES.Black.Color) break
         opts.push(opt1)
     }
 
@@ -223,8 +223,8 @@ function getBlackBishopMoves(opt: Option, board: string[][]): Option[] {
         row++
         column--
         const opt1: Option = { row: row, column: column }
-        if (getPieceColor(board[opt1.row][opt1.column]) === "white") { opts.push(opt1); break }
-        if (getPieceColor(board[opt1.row][opt1.column]) === "black") break
+        if (getPieceColor(board[opt1.row][opt1.column]) === PIECES.White.Color) { opts.push(opt1); break }
+        if (getPieceColor(board[opt1.row][opt1.column]) === PIECES.Black.Color) break
         opts.push(opt1)
     }
 
@@ -235,8 +235,8 @@ function getBlackBishopMoves(opt: Option, board: string[][]): Option[] {
         row++
         column++
         const opt1: Option = { row: row, column: column }
-        if (getPieceColor(board[opt1.row][opt1.column]) === "white") { opts.push(opt1); break }
-        if (getPieceColor(board[opt1.row][opt1.column]) === "black") break
+        if (getPieceColor(board[opt1.row][opt1.column]) === PIECES.White.Color) { opts.push(opt1); break }
+        if (getPieceColor(board[opt1.row][opt1.column]) === PIECES.Black.Color) break
         opts.push(opt1)
     }
 
@@ -261,7 +261,7 @@ function getWhiteHorseMoves(opt: Option, board: string[][]): Option[] {
             op.row < 0 || op.row >= board.length ||
             op.column < 0 || op.column >= board.length
         ) { delete (opts[opIndex]); continue }
-        if (getPieceColor(board[op.row][op.column]) === "white") delete (opts[opIndex])
+        if (getPieceColor(board[op.row][op.column]) === PIECES.White.Color) delete (opts[opIndex])
     }
 
     return opts
@@ -285,7 +285,7 @@ function getBlackHorseMoves(opt: Option, board: string[][]): Option[] {
             op.row < 0 || op.row >= board.length ||
             op.column < 0 || op.column >= board.length
         ) { delete (opts[opIndex]); continue }
-        if (getPieceColor(board[op.row][op.column]) === "black") delete (opts[opIndex])
+        if (getPieceColor(board[op.row][op.column]) === PIECES.Black.Color) delete (opts[opIndex])
     }
 
     return opts
@@ -323,7 +323,7 @@ function getWhiteKingMoves(opt: Option, board: string[][]): Option[] {
             op.row < 0 || op.row >= board.length ||
             op.column < 0 || op.column >= board.length
         ) { delete (opts[opIndex]); continue }
-        if (getPieceColor(board[op.row][op.column]) === "white") delete (opts[opIndex])
+        if (getPieceColor(board[op.row][op.column]) === PIECES.White.Color) delete (opts[opIndex])
     }
 
     return opts
@@ -347,7 +347,7 @@ function getBlackKingMoves(opt: Option, board: string[][]): Option[] {
             op.row < 0 || op.row >= board.length ||
             op.column < 0 || op.column >= board.length
         ) { delete (opts[opIndex]); continue }
-        if (getPieceColor(board[op.row][op.column]) === "black") delete (opts[opIndex])
+        if (getPieceColor(board[op.row][op.column]) === PIECES.Black.Color) delete (opts[opIndex])
     }
 
     return opts
@@ -380,9 +380,7 @@ export function getPieceMoves(piece: string, option: Option, board: string[][]):
         return getBlackKingMoves(option, board)
     }
 
-    return [
-        { row: 4, column: 5 }
-    ]
+    return []
 }
 
 /*
