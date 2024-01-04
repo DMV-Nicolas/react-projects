@@ -1,17 +1,40 @@
+import { PIECES } from "./constants"
 import { Option } from "./types"
 
 function getPieceColor(piece: string): string {
-    if (piece.length == 0) {
-        return ""
-    }
+    if (piece === undefined || piece === null || piece.length == 0) return ""
 
     if (piece[0] == "W") return "white"
     else if (piece[0] == "B") return "black"
     return ""
 }
 
+function getWhitePawnMoves(opt: Option, board: string[][]): Option[] {
+    const opts: Option[] = []
+
+    const opt1: Option = { row: opt.row - 1, column: opt.column }
+    if (opt1.row >= 0 && board[opt1.row][opt1.column] === PIECES.Empty) opts.push(opt1)
+
+    const opt2: Option = { row: opt.row - 2, column: opt.column }
+    if (opt.row === 6 && board[opt1.row][opt1.column] === PIECES.Empty && board[opt2.row][opt2.column] === PIECES.Empty) opts.push(opt2)
+
+    const opt3: Option = { row: opt.row - 1, column: opt.column - 1 }
+    if (opt3.row >= 0 && getPieceColor(board[opt3.row][opt3.column]) === "black") opts.push(opt3)
+
+    const opt4: Option = { row: opt.row - 1, column: opt.column + 1 }
+    if (opt4.row >= 0 && getPieceColor(board[opt4.row][opt4.column]) === "black") opts.push(opt4)
+
+    return opts
+}
+
 export function getPieceMoves(piece: string, option: Option, board: string[][]): Option[] {
-    return []
+    if (piece === PIECES.White.Pawn) {
+        return getWhitePawnMoves(option, board)
+    }
+
+    return [
+        { row: 4, column: 5 }
+    ]
 }
 
 /*
