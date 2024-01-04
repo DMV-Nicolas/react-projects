@@ -305,6 +305,54 @@ function getBlackQueenMoves(opt: Option, board: string[][]): Option[] {
     return opts
 }
 
+function getWhiteKingMoves(opt: Option, board: string[][]): Option[] {
+    const opts: Option[] = [
+        { row: opt.row - 1, column: opt.column - 1 },
+        { row: opt.row - 1, column: opt.column + 1 },
+        { row: opt.row + 1, column: opt.column + 1 },
+        { row: opt.row + 1, column: opt.column - 1 },
+        { row: opt.row - 1, column: opt.column },
+        { row: opt.row + 1, column: opt.column },
+        { row: opt.row, column: opt.column - 1 },
+        { row: opt.row, column: opt.column + 1 }
+    ]
+
+    for (const opIndex in opts) {
+        const op = opts[opIndex]
+        if (
+            op.row < 0 || op.row >= board.length ||
+            op.column < 0 || op.column >= board.length
+        ) { delete (opts[opIndex]); continue }
+        if (getPieceColor(board[op.row][op.column]) === "white") delete (opts[opIndex])
+    }
+
+    return opts
+}
+
+function getBlackKingMoves(opt: Option, board: string[][]): Option[] {
+    const opts: Option[] = [
+        { row: opt.row - 1, column: opt.column - 1 },
+        { row: opt.row - 1, column: opt.column + 1 },
+        { row: opt.row + 1, column: opt.column + 1 },
+        { row: opt.row + 1, column: opt.column - 1 },
+        { row: opt.row - 1, column: opt.column },
+        { row: opt.row + 1, column: opt.column },
+        { row: opt.row, column: opt.column - 1 },
+        { row: opt.row, column: opt.column + 1 }
+    ]
+
+    for (const opIndex in opts) {
+        const op = opts[opIndex]
+        if (
+            op.row < 0 || op.row >= board.length ||
+            op.column < 0 || op.column >= board.length
+        ) { delete (opts[opIndex]); continue }
+        if (getPieceColor(board[op.row][op.column]) === "black") delete (opts[opIndex])
+    }
+
+    return opts
+}
+
 export function getPieceMoves(piece: string, option: Option, board: string[][]): Option[] {
     if (piece === PIECES.White.Pawn) {
         return getWhitePawnMoves(option, board)
@@ -326,6 +374,10 @@ export function getPieceMoves(piece: string, option: Option, board: string[][]):
         return getWhiteQueenMoves(option, board)
     } else if (piece === PIECES.Black.Queen) {
         return getBlackQueenMoves(option, board)
+    } else if (piece === PIECES.White.King) {
+        return getWhiteKingMoves(option, board)
+    } else if (piece === PIECES.Black.King) {
+        return getBlackKingMoves(option, board)
     }
 
     return [
