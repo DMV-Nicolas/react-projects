@@ -1,13 +1,6 @@
 import { PIECES } from "./constants"
 import { Option } from "./types"
-
-function getPieceColor(piece: string): string {
-    if (piece === undefined || piece === null || piece.length == 0) return ""
-
-    if (piece[0] == "W") return PIECES.White.Color
-    else if (piece[0] == "B") return PIECES.Black.Color
-    return ""
-}
+import { getPieceColor } from "./getPieceColors"
 
 function getWhitePawnMoves(opt: Option, board: string[][]): Option[] {
     const opts: Option[] = []

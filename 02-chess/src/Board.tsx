@@ -2,6 +2,7 @@ import { useState } from "react"
 import { DEFAULT_BOARD, PIECES } from "./constants"
 import { getPieceMoves } from "./getPieceMoves"
 import { Option } from "./types"
+import { getPieceColor, getOppositePieceColor } from "./getPieceColors"
 
 type Selected = {
   piece: string,
@@ -48,17 +49,22 @@ export function Board() {
       })
     } else {
       const newBoard = [...board]
-      const opt: Option = { row, column }
+      const pieceColor = getPieceColor(selected.piece)
+      if (pieceColor !== turn) {
+        setSelected(INITIAL_SELECTED)
+        return
+      }
 
       for (const o of selected.options) {
         if (o === undefined || o === null) continue
-        if (o.row === opt.row && o.column === opt.column) {
+        if (o.row === row && o.column === column) {
           newBoard[row][column] = selected.piece
           newBoard[selected.position.row][selected.position.column] = PIECES.Empty
           setBoard(newBoard)
+          setSelected(INITIAL_SELECTED)
+          setTurn(getOppositePieceColor(selected.piece))
         }
       }
-      setSelected(INITIAL_SELECTED)
     }
   }
 
