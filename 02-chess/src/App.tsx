@@ -4,12 +4,12 @@ import { getPieceMoves } from "./getPieceMoves"
 import { DEFAULT_BOARD, PIECES } from "./constants"
 
 import "./App.css"
+DEFAULT_BOARD[5][4] = PIECES.Black.Bishop
 
 function App() {
   const [board, setBoard] = useState(DEFAULT_BOARD)
 
   const handleClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-    console.log("A")
     if (e.target instanceof HTMLDivElement || e.target instanceof HTMLImageElement) {
       const newBoard = [...board]
       let row: number = 0
@@ -25,12 +25,13 @@ function App() {
         column = parseInt(columnStr)
       }
 
-      const options = getPieceMoves(PIECES.White.Pawn, { row, column }, newBoard)
+      const options = getPieceMoves(PIECES.White.Rook, { row, column }, newBoard)
 
       for (const opt of options) {
         if (opt === null || opt === undefined) continue
         newBoard[opt.row][opt.column] = 'https://pbs.twimg.com/profile_images/601916716571058176/LEHlLQ_o_400x400.jpg'
       }
+      console.log(newBoard)
 
       setBoard(newBoard)
     }

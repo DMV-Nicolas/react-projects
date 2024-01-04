@@ -27,9 +27,45 @@ function getWhitePawnMoves(opt: Option, board: string[][]): Option[] {
     return opts
 }
 
+function getBlackPawnMoves(opt: Option, board: string[][]): Option[] {
+    const opts: Option[] = []
+
+    const opt1: Option = { row: opt.row + 1, column: opt.column }
+    if (opt1.row < board.length && board[opt1.row][opt1.column] === PIECES.Empty) opts.push(opt1)
+
+    const opt2: Option = { row: opt.row + 2, column: opt.column }
+    if (opt.row === 1 && board[opt1.row][opt1.column] === PIECES.Empty && board[opt2.row][opt2.column] === PIECES.Empty) opts.push(opt2)
+
+    const opt3: Option = { row: opt.row + 1, column: opt.column - 1 }
+    if (opt3.row < board.length && getPieceColor(board[opt3.row][opt3.column]) === "white") opts.push(opt3)
+
+    const opt4: Option = { row: opt.row + 1, column: opt.column + 1 }
+    if (opt4.row < board.length && getPieceColor(board[opt4.row][opt4.column]) === "white") opts.push(opt4)
+
+    return opts
+}
+
+/*function getWhiteRookMoves(opt: Option, board: string[][]): Option[] {
+    const opts: Option[] = []
+    let cell = opt.column
+    while (cell > 0) {
+        cell--
+        const opt1: Option = { row: opt.row, column: cell }
+        if (getPieceColor(board[opt1.row][opt1.column]) === "black") { opts.push(opt1); break }
+        if (getPieceColor(board[opt1.row][opt1.column]) === "white") break
+        opts.push(opt1)
+    }
+    return opts
+}*/
+
+
 export function getPieceMoves(piece: string, option: Option, board: string[][]): Option[] {
     if (piece === PIECES.White.Pawn) {
         return getWhitePawnMoves(option, board)
+    } else if (piece === PIECES.Black.Pawn) {
+        return getBlackPawnMoves(option, board)
+    } else if (piece === PIECES.White.Rook) {
+        // return getWhiteRookMoves(option, board)
     }
 
     return [
