@@ -1,6 +1,8 @@
+import { Selected } from "./types"
+
 export const PIECES = {
     White: {
-        Color: "white",
+        Color: "WHorse.svg",
         Pawn: "WPawn.svg",
         Rook: "WRook.svg",
         Horse: "WHorse.svg",
@@ -9,7 +11,7 @@ export const PIECES = {
         King: "WKing.svg",
     },
     Black: {
-        Color: "black",
+        Color: "BHorse.svg",
         Pawn: "BPawn.svg",
         Rook: "BRook.svg",
         Horse: "BHorse.svg",
@@ -30,3 +32,16 @@ export const DEFAULT_BOARD = [
     [PIECES.White.Pawn, PIECES.White.Pawn, PIECES.White.Pawn, PIECES.White.Pawn, PIECES.White.Pawn, PIECES.White.Pawn, PIECES.White.Pawn, PIECES.White.Pawn],
     [PIECES.White.Rook, PIECES.White.Horse, PIECES.White.Bishop, PIECES.White.Queen, PIECES.White.King, PIECES.White.Bishop, PIECES.White.Horse, PIECES.White.Rook]
 ]
+
+export const DEFAULT_SELECTED: Selected = {
+    piece: PIECES.Empty,
+    position: { row: -1, column: -1 },
+    options: []
+}
+
+export const WINNERS = {
+    White: "white",
+    Black: "black",
+    Draw: "draw",
+    Process: "process"
+}

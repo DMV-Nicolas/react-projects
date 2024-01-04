@@ -1,6 +1,26 @@
-import { PIECES } from "./constants"
-import { Option } from "./types"
-import { getPieceColor } from "./getPieceColors"
+import { PIECES } from "../constants"
+import { Option } from "../types"
+
+export function isKing(piece: string): boolean {
+    if (piece === undefined || piece === null || piece.length == 0) return false
+    if (piece[1] === "K") return true
+    return false
+}
+
+export function getPieceColor(piece: string): string {
+    if (piece === undefined || piece === null || piece.length == 0) return ""
+
+    if (piece[0] == "W") return PIECES.White.Color
+    else if (piece[0] == "B") return PIECES.Black.Color
+    return ""
+}
+
+export function getOppositePieceColor(piece: string) {
+    if (piece === undefined || piece === null || piece.length == 0) return ""
+    if (piece[0] == "W") return PIECES.Black.Color
+    else if (piece[0] == "B") return PIECES.White.Color
+    return ""
+}
 
 function getWhitePawnMoves(opt: Option, board: string[][]): Option[] {
     const opts: Option[] = []
@@ -375,25 +395,3 @@ export function getPieceMoves(piece: string, option: Option, board: string[][]):
 
     return []
 }
-
-/*
-
-   00 01 02 03 04 05 06 07
-   08 09 10 11 12 13 14 15
-   16 17 18 19 20 21 22 23
-   24 25 26 27 28 29 30 31
-   32 33 34 35 36 37 38 39
-   40 41 42 43 44 45 46 47 
-   48 49 50 51 52 53 54 55
-   56 57 58 59 60 61 62 63
-
-0  ⬜ 🟩 ⬜ 🟩 ⬜ 🟩 ⬜ 🟩 7
-8  🟩 ⬜ 🟩 ⬜ 🟩 ⬜ 🟩 ⬜ 15
-16 ⬜ 🟩 ⬜ 🟩 ⬜ 🟩 ⬜ 🟩 23
-24 🟩 ⬜ 🟩 ⬜ XX ⬜ XX ⬜ 31
-32 ⬜ 🟩 ⬜ XX ⬜ 🟩 ⬜ XX 39
-40 🟩 ⬜ 🟩 ⬜ 🟩 XX 🟩 ⬜ 47
-48 ⬜ 🟩 ⬜ XX ⬜ 🟩 ⬜ XX 55
-56 🟩 ⬜ 🟩 ⬜ XX ⬜ XX ⬜ 63
-
-*/
