@@ -45,8 +45,10 @@ function getBlackPawnMoves(opt: Option, board: string[][]): Option[] {
     return opts
 }
 
-/*function getWhiteRookMoves(opt: Option, board: string[][]): Option[] {
+function getWhiteRookMoves(opt: Option, board: string[][]): Option[] {
     const opts: Option[] = []
+
+    // left
     let cell = opt.column
     while (cell > 0) {
         cell--
@@ -55,8 +57,38 @@ function getBlackPawnMoves(opt: Option, board: string[][]): Option[] {
         if (getPieceColor(board[opt1.row][opt1.column]) === "white") break
         opts.push(opt1)
     }
+
+    // right
+    cell = opt.column
+    while (cell < board.length - 1) {
+        cell++
+        const opt1: Option = { row: opt.row, column: cell }
+        if (getPieceColor(board[opt1.row][opt1.column]) === "black") { opts.push(opt1); break }
+        if (getPieceColor(board[opt1.row][opt1.column]) === "white") break
+        opts.push(opt1)
+    }
+
+    // up
+    cell = opt.row
+    while (cell > 0) {
+        cell--
+        const opt1: Option = { row: cell, column: opt.column }
+        if (getPieceColor(board[opt1.row][opt1.column]) === "black") { opts.push(opt1); break }
+        if (getPieceColor(board[opt1.row][opt1.column]) === "white") break
+        opts.push(opt1)
+    }
+
+    // down
+    cell = opt.row
+    while (cell < board.length - 1) {
+        cell++
+        const opt1: Option = { row: cell, column: opt.column }
+        if (getPieceColor(board[opt1.row][opt1.column]) === "black") { opts.push(opt1); break }
+        if (getPieceColor(board[opt1.row][opt1.column]) === "white") break
+        opts.push(opt1)
+    }
     return opts
-}*/
+}
 
 
 export function getPieceMoves(piece: string, option: Option, board: string[][]): Option[] {
@@ -65,7 +97,7 @@ export function getPieceMoves(piece: string, option: Option, board: string[][]):
     } else if (piece === PIECES.Black.Pawn) {
         return getBlackPawnMoves(option, board)
     } else if (piece === PIECES.White.Rook) {
-        // return getWhiteRookMoves(option, board)
+        return getWhiteRookMoves(option, board)
     }
 
     return [

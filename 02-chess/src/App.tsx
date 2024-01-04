@@ -5,6 +5,10 @@ import { DEFAULT_BOARD, PIECES } from "./constants"
 
 import "./App.css"
 DEFAULT_BOARD[5][4] = PIECES.Black.Bishop
+DEFAULT_BOARD[0][0] = PIECES.Empty
+DEFAULT_BOARD[1][0] = PIECES.Empty
+DEFAULT_BOARD[6][0] = PIECES.Empty
+DEFAULT_BOARD[7][0] = PIECES.Empty
 
 function App() {
   const [board, setBoard] = useState(DEFAULT_BOARD)
@@ -29,9 +33,8 @@ function App() {
 
       for (const opt of options) {
         if (opt === null || opt === undefined) continue
-        newBoard[opt.row][opt.column] = 'https://pbs.twimg.com/profile_images/601916716571058176/LEHlLQ_o_400x400.jpg'
+        newBoard[opt.row][opt.column] = 'https://pa1.aminoapps.com/6258/0c371827325476dfb16ce2bb506673137024beae_00.gif'
       }
-      console.log(newBoard)
 
       setBoard(newBoard)
     }
