@@ -6,13 +6,14 @@ import { DEFAULT_BOARD, PIECES } from "./constants"
 import "./App.css"
 
 function App() {
+  DEFAULT_BOARD[45] = PIECES.White.Bishop
+  DEFAULT_BOARD[35] = PIECES.Black.Bishop
   const [board, setBoard] = useState(DEFAULT_BOARD)
 
   const handleClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-    console.log("HOLA")
     if (e.target instanceof HTMLDivElement) {
       const newBoard = [...board]
-      const moves = getPieceMoves(PIECES.White.Pawn, Number(e.target.dataset.index), newBoard)
+      const moves = getPieceMoves(PIECES.Black.Rook, Number(e.target.dataset.index), newBoard)
 
       for (const move of moves) {
         newBoard[move] = "https://images.vexels.com/media/users/3/139158/isolated/preview/c862a3c9ef219140fb365301f9ebbd50-punto-negro.png"
@@ -23,7 +24,7 @@ function App() {
       const parentElement = e.target.parentElement
       if (parentElement instanceof HTMLDivElement) {
         const newBoard = [...board]
-        const moves = getPieceMoves(PIECES.White.Pawn, Number(parentElement.dataset.index), newBoard)
+        const moves = getPieceMoves(PIECES.Black.Rook, Number(parentElement.dataset.index), newBoard)
 
         for (const move of moves) {
           newBoard[move] = "https://images.vexels.com/media/users/3/139158/isolated/preview/c862a3c9ef219140fb365301f9ebbd50-punto-negro.png"
@@ -63,16 +64,3 @@ function App() {
 }
 
 export default App
-
-/*
-
-0  ⬜ 🟩 ⬜ 🟩 ⬜ 🟩 ⬜ 🟩 7
-8  🟩 ⬜ 🟩 ⬜ 🟩 ⬜ 🟩 ⬜ 15
-16 ⬜ 🟩 ⬜ 🟩 ⬜ 🟩 ⬜ 🟩 23
-24 🟩 ⬜ 🟩 ⬜ 🟩 ⬜ 🟩 ⬜ 31
-32 ⬜ 🟩 ⬜ 🟩 ⬜ 🟩 ⬜ 🟩 39
-40 🟩 ⬜ 🟩 ⬜ 🟩 ⬜ 🟩 ⬜ 47
-48 ⬜ 🟩 ⬜ 🟩 ⬜ 🟩 ⬜ 🟩 55
-56 🟩 ⬜ 🟩 ⬜ 🟩 ⬜ 🟩 ⬜ 63
-
-*/
