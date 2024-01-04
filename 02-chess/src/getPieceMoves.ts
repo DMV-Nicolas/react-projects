@@ -291,6 +291,20 @@ function getBlackHorseMoves(opt: Option, board: string[][]): Option[] {
     return opts
 }
 
+function getWhiteQueenMoves(opt: Option, board: string[][]): Option[] {
+    const opts: Option[] = getWhiteRookMoves(opt, board)
+    opts.push(...getWhiteBishopMoves(opt, board))
+
+    return opts
+}
+
+function getBlackQueenMoves(opt: Option, board: string[][]): Option[] {
+    const opts: Option[] = getBlackRookMoves(opt, board)
+    opts.push(...getBlackBishopMoves(opt, board))
+
+    return opts
+}
+
 export function getPieceMoves(piece: string, option: Option, board: string[][]): Option[] {
     if (piece === PIECES.White.Pawn) {
         return getWhitePawnMoves(option, board)
@@ -308,6 +322,10 @@ export function getPieceMoves(piece: string, option: Option, board: string[][]):
         return getWhiteHorseMoves(option, board)
     } else if (piece === PIECES.Black.Horse) {
         return getBlackHorseMoves(option, board)
+    } else if (piece === PIECES.White.Queen) {
+        return getWhiteQueenMoves(option, board)
+    } else if (piece === PIECES.Black.Queen) {
+        return getBlackQueenMoves(option, board)
     }
 
     return [
