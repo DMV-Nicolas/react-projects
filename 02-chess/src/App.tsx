@@ -3,8 +3,8 @@ import { Board } from "./components/Board"
 import { WinnerModal } from "./components/WinnerModal"
 import { Turn } from "./components/Turn"
 import { getPieceMoves, getPieceColor, getOppositePieceColor, isKing } from "./logic/getPiece"
-import { PIECES, WINNERS, DEFAULT_BOARD, DEFAULT_SELECTED } from "./constants"
-import { Selected, setSelected } from "./types"
+import { PIECES, WINNERS, DEFAULT_BOARD, DEFAULT_SELECTED, DEFAULT_PREV_MOVES } from "./constants"
+import { PrevMoves, Selected, SetPrevMoves, SetSelected } from "./types"
 import { boardFromStorage, saveGame, turnFromStorage } from "./logic/localStorage"
 
 
@@ -23,7 +23,8 @@ function App() {
     const turn = turnFromStorage()
     return turn !== "" ? turn : PIECES.White.Color
   })
-  const [selected, setSelected]: [Selected, setSelected] = useState(DEFAULT_SELECTED)
+  const [prevMoves, setPrevMoves]: [PrevMoves, SetPrevMoves] = useState(DEFAULT_PREV_MOVES)
+  const [selected, setSelected]: [Selected, SetSelected] = useState(DEFAULT_SELECTED)
   const [winner, setWinner] = useState(WINNERS.Process)
 
   const updateBoard = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
@@ -71,6 +72,12 @@ function App() {
         const newTurn = getOppositePieceColor(selected.piece)
         setTurn(newTurn)
 
+        const newPrevMoves: PrevMoves = [
+          { row: selected.position.row, column: selected.position.column },
+          { row, column },
+        ]
+        setPrevMoves(newPrevMoves)
+
         saveGame(newBoard, newTurn)
       }
     }
@@ -88,9 +95,8 @@ function App() {
   return (
     <>
       <main className="game">
-        <button onClick={resetGame}>Reset game</button>
-        <Board board={board} selected={selected} updateBoard={updateBoard} />
-        <Turn turn={turn} />
+        <Board board={board} selected={selected} prevMoves={prevMoves} updateBoard={updateBoard} />
+        <Turn turn={turn} setWinner={setWinner} />
         <WinnerModal winner={winner} resetGame={resetGame} />
       </main>
     </>

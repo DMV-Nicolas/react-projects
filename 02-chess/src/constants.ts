@@ -1,4 +1,4 @@
-import { Selected } from "./types"
+import { PrevMoves, Selected } from "./types"
 
 export const PIECES = {
     White: {
@@ -38,6 +38,11 @@ export const DEFAULT_SELECTED: Selected = {
     position: { row: -1, column: -1 },
     options: []
 }
+
+export const DEFAULT_PREV_MOVES: PrevMoves = [
+    { row: -1, column: - 1, },
+    { row: -1, column: - 1, }
+]
 
 export const WINNERS = {
     White: "white",

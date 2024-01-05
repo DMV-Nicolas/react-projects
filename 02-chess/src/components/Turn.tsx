@@ -2,6 +2,7 @@ import { PIECES } from "../constants"
 
 type TurnParams = {
     turn: string
+    setWinner: React.Dispatch<React.SetStateAction<string>>
 }
 
 export function Turn({ turn }: TurnParams) {
@@ -10,7 +11,7 @@ export function Turn({ turn }: TurnParams) {
 
     return (
         <section className="turn">
-            <div className={blackTurnClassName}>
+            <div className={blackTurnClassName} >
                 <img src={PIECES.Black.Horse} />
             </div>
             <div className={whiteTurnClassName}>

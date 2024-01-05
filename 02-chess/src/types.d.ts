@@ -9,4 +9,8 @@ export type Selected = {
     options: Option[]
 }
 
-export type setSelected = React.Dispatch<React.SetStateAction<Selected>>
+export type SetSelected = React.Dispatch<React.SetStateAction<Selected>>
+
+export type PrevMoves = [Option, Option]
+
+export type SetPrevMoves = React.Dispatch<React.SetStateAction<PrevMoves>>

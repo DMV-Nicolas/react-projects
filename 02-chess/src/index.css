@@ -97,8 +97,12 @@ body {
     background: #bbcc44;
 }
 
-.selected {
+.greenSelected {
     background-color: #bbcc44 !important
+}
+
+.whiteSelected {
+    background-color: #f4f680 !important;
 }
 
 .green {
