@@ -6,7 +6,6 @@ const sleep = function (ms: number) {
 
 export const useTitle = (): [string, (e: React.FormEvent<HTMLFormElement>) => void, (e: React.ChangeEvent<HTMLInputElement>) => void] => {
     const [title, setTitle] = useState("")
-    let priority = 0
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
@@ -16,6 +15,7 @@ export const useTitle = (): [string, (e: React.FormEvent<HTMLFormElement>) => vo
         }
     }
 
+    let priority = 0
     const handleChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
         const eventPriority = priority
         priority++
