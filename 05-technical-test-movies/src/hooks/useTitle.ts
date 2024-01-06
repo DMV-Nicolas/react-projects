@@ -4,7 +4,7 @@ const sleep = function (ms: number) {
     return new Promise(resolve => setTimeout(resolve, ms));
 };
 
-export const useTitle = (): [string, (e: React.FormEvent<HTMLFormElement>) => void, (e: React.ChangeEvent<HTMLInputElement>) => void] => {
+export function useTitle(): [string, (e: React.FormEvent<HTMLFormElement>) => void, (e: React.ChangeEvent<HTMLInputElement>) => void] {
     const [title, setTitle] = useState("")
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {

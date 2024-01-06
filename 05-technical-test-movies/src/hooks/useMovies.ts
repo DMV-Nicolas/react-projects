@@ -2,7 +2,7 @@ import { useState, useEffect } from "react"
 import { DEFAULT_MOVIES, PREFIX_URL, API_KEY } from "../constants"
 import { Movie } from "../types"
 
-export const useMovies = (title: string): Movie[] => {
+export function useMovies(title: string): Movie[] {
     const [movies, setMovies] = useState(DEFAULT_MOVIES)
 
     useEffect(() => {
