@@ -10,9 +10,14 @@ export function useMovies(title: string): Movie[] {
         const fetchMoviesData = async () => {
             const res = await fetch(`${PREFIX_URL}?apikey=${API_KEY}&s=${title}`)
             const data = await res.json()
-            const movies: Movie[] = data.Search
-            setMovies(movies)
+            if (data.Response === "True") {
+                const movies: Movie[] = data.Search
+                setMovies(movies)
+            } else {
+                setMovies([])
+            }
         }
+
         fetchMoviesData()
     }, [title])
 

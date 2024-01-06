@@ -11,7 +11,7 @@ form {
   justify-content: center;
 }
 
-main {
+.movies {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
