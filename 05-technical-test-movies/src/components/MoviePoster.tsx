@@ -6,16 +6,16 @@ type MoviePosterParams = {
 
 export function MoviePoster({ movie }: MoviePosterParams) {
     return (
-        <article className="movie" key={movie.imdbID}>
+        <article className="movie" key={movie.id}>
             <header className="movieHeader">
-                <span className="movieYear">{movie.Year}</span>
+                <span className="movieYear">{movie.year}</span>
             </header>
             <div className="movieBody">
-                <img className="moviePoster" src={movie.Poster} alt={`${movie.Title} poster image`} />
+                <img className="moviePoster" src={movie.poster} alt={`${movie.title} poster image`} />
             </div>
             <footer className="movieFooter">
-                <span className="movieType">{movie.Type}</span>
-                <p className="movieTitle">{movie.Title}</p>
+                <span className="movieType">{movie.type}</span>
+                <p className="movieTitle">{movie.title}</p>
             </footer>
         </article>
     )
