@@ -19,7 +19,7 @@ function App() {
       <main>
         {movies &&
           movies.map((movie) => (
-            <article className="movie">
+            <article className="movie" key={movie.imdbID}>
               <header className="movieHeader">
                 <span className="movieYear">{movie.Year}</span>
               </header>
