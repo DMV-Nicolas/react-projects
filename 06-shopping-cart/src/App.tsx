@@ -1,12 +1,16 @@
-import { Products } from './components/Products'
-import { useProducts } from './hooks/useProducts'
 import { useState } from 'react'
+import { Cart } from './components/Cart'
+import { Products } from './components/Products'
+import { useCart } from './hooks/useCart'
+import { useProducts } from './hooks/useProducts'
+import { isCartEmpty } from './services/cart'
 
 
 function App() {
   const [minPriceFilter, setMinPriceFilter] = useState(250)
   const [categoryFilter, setCategoryFilter] = useState("all")
   const { products, getProducts } = useProducts()
+  const { cart, addToCart, removeFromCart } = useCart()
 
   const handleChangeMinPrice = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newPriceFilter = parseInt(e.target.value)
@@ -25,7 +29,7 @@ function App() {
       <header>
         <h1>React Shop 🛒</h1>
         <form>
-          <label htmlFor="price">Price from:</label>
+          <label htmlFor="minPrice">Price from:</label>
           <input id="minPrice" type="range" min={0} max={1000} value={minPriceFilter} onChange={handleChangeMinPrice} />
           <span>${minPriceFilter}</span>
           <label htmlFor="category">Category:</label>
@@ -37,8 +41,21 @@ function App() {
         </form>
       </header>
       <main>
-        <Products products={products} />
+        <Products
+          products={products}
+          cart={cart}
+          addToCart={addToCart}
+          removeFromCart={removeFromCart}
+        />
       </main>
+      {!isCartEmpty(cart) &&
+        <Cart
+          cart={cart}
+          addToCart={addToCart}
+          removeFromCart={removeFromCart}
+        />
+      }
+
     </div>
   )
 }

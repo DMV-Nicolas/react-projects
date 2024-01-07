@@ -60,7 +60,19 @@ body {
     transition: all 0.25s ease;
 }
 
+.remove-to-cart-btn {
+    background-color: crimson;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    margin: 10px;
+    cursor: pointer;
+    border-radius: 3px;
+    transition: all 0.25s ease;
+}
+
 .add-to-cart-btn:hover,
+.remove-to-cart-btn,
 .view-btn:hover {
     opacity: 0.8;
 }

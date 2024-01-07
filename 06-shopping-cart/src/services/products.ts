@@ -14,7 +14,7 @@ export async function searchProducts(): Promise<Product[]> {
         brand: p.brand,
         category: p.category,
         image: p.thumbnail,
-        images: p.images
+        images: p.images,
     }))
 }
 

@@ -1,0 +1,19 @@
+.shopping-cart {
+    position: fixed;
+    display: block;
+    height: 100%;
+    margin: 0;
+    padding: 0 1em;
+    top: 0;
+    left: 0;
+    overflow-x: hidden;
+    background-color: #000;
+}
+
+.shopping-cart h4 {
+    text-align: center;
+}
+
+.shopping-cart li {
+    list-style: none;
+}
