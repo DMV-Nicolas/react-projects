@@ -1,11 +1,34 @@
-import './App.css'
+import { useState } from 'react'
 import { Movies } from './components/Movies'
 import { useMovies } from './hooks/useMovies'
 import { useQuery } from './hooks/useQuery'
+import { validQuery } from './services/query'
+import './App.css'
 
 function App() {
-  const [query, handleSubmit, handleChange, error] = useQuery()
-  const movies = useMovies(query, error === "")
+  const [sort, setSort] = useState(false)
+  const { query, setQuery, error } = useQuery()
+  const { movies, getMovies, resetMovies, loading } = useMovies()
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    getMovies(query)
+  }
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newQuery = e.target.value
+    setQuery(newQuery)
+    if (validQuery(newQuery) !== "") {
+      resetMovies()
+    } else {
+      getMovies(newQuery)
+    }
+  }
+
+  const handleSort = () => {
+    setSort(!sort)
+  }
+
 
   return (
     <div className="page">
@@ -19,13 +42,16 @@ function App() {
             }}
             name="movieTitle" value={query} type="text"
             placeholder="Avengers, Star Wars, Baki..." onChange={handleChange} />
+          <input type="checkbox" onClick={handleSort} />
           <button>Search</button>
         </form>
         <span className="error">{error && error}</span>
       </header>
 
       <main>
-        <Movies movies={movies} />
+        {
+          loading ? <p>Cargando...</p> : <Movies movies={movies} />
+        }
       </main>
     </div>
   )
