@@ -1,5 +1,17 @@
 import { Product } from "../types";
 
 export function isProductOnCart(product: Product, cart: Product[]): boolean {
-    return cart.includes(product)
+    for (const p of cart) {
+        if (p === null || p === undefined) continue
+        if (p.id === product.id) return true
+    }
+    return false
+}
+
+export function cartIndexOf(product: Product, cart: Product[]): number {
+    for (const key in cart) {
+        const i = parseInt(key)
+        if (cart[key].id === product.id) return i
+    }
+    return -1
 }
