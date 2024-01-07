@@ -8,7 +8,7 @@ import './App.css'
 function App() {
   const [sort, setSort] = useState(false)
   const { query, setQuery, error } = useQuery()
-  const { movies, getMovies, resetMovies, loading } = useMovies()
+  const { movies, getMovies, resetMovies, loading } = useMovies(sort)
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()

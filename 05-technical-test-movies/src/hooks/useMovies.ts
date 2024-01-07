@@ -1,16 +1,16 @@
-import { useRef, useState } from "react"
+import { useCallback, useMemo, useRef, useState } from "react"
 import { searchMovies } from "../services/movie"
 import { Movie } from "../types"
 
 const DEFAULT_MOVIES: Movie[] = []
 
-export function useMovies(): { movies: Movie[], getMovies: (query: string) => void, resetMovies: () => void, loading: boolean } {
+export function useMovies(sort: boolean): { movies: Movie[], getMovies: (query: string) => void, resetMovies: () => void, loading: boolean } {
     const [movies, setMovies] = useState(DEFAULT_MOVIES)
     const [loading, setLoading] = useState(false)
     const [, setError] = useState("")
     const previusSearch = useRef("")
 
-    const getMovies = async (query: string) => {
+    const getMovies = useCallback(async (query: string) => {
         try {
             if (query === previusSearch.current) return
             setLoading(true)
@@ -23,11 +23,20 @@ export function useMovies(): { movies: Movie[], getMovies: (query: string) => vo
         } finally {
             setLoading(false)
         }
-    }
+    }, [])
 
     const resetMovies = () => {
         setMovies([])
     }
 
-    return { movies, getMovies, resetMovies, loading }
+    const sortedMovies = useMemo(() => {
+        console.log("calc")
+        return sort
+            ? [...movies].sort((a, b) => a.title.localeCompare(b.title))
+            : movies
+    }, [sort, movies])
+
+
+
+    return { movies: sortedMovies, getMovies, resetMovies, loading }
 }
