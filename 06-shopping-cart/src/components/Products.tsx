@@ -1,10 +1,12 @@
 import { ProductCard } from "./ProductCard"
-import { getProducts } from "../services/products"
+import { Product } from "../types"
 import "./Products.css"
 
-export function Products() {
-    const products = getProducts()
+type ProductsParams = {
+    products: Product[]
+}
 
+export function Products({ products }: ProductsParams) {
     return (
         <ul className="products">
             {products.map((product) => (

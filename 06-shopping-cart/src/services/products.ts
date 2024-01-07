@@ -1,7 +1,7 @@
 import { Product } from "../types";
 import JSONResponse from "../mocks/products.json"
 
-export function getProducts(): Product[] {
+export async function searchProducts(): Promise<Product[]> {
     return JSONResponse.products.map((p): Product => ({
         id: p.id,
         name: p.title,
@@ -16,4 +16,8 @@ export function getProducts(): Product[] {
         image: p.thumbnail,
         images: p.images
     }))
+}
+
+export function sortProductsByPrice(products: Product[], price: number): Product[] {
+    return products.filter((product) => (product.price >= price))
 }
