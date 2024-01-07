@@ -10,7 +10,7 @@ function ListOfMovies({ movies }: ListOfMoviesParams) {
     <ul className="movies">
       {movies &&
         movies.map((movie) => (
-          <MoviePoster movie={movie} />
+          <MoviePoster movie={movie} key={movie.id} />
         ))
       }
     </ul>

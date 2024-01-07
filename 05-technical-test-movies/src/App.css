@@ -11,11 +11,16 @@ form {
   justify-content: center;
 }
 
+main {
+  width: 100%;
+}
+
 .movies {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 1em;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 16px;
 }
 
 .movie {
@@ -61,4 +66,9 @@ form {
   margin: 0;
   padding: .1em;
   background-color: rgba(0, 0, 0, .5);
+}
+
+.error {
+  font-size: .8em;
+  color: crimson;
 }

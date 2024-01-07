@@ -1,33 +1,18 @@
-import { useState, useEffect } from "react"
-import { DEFAULT_MOVIES, PREFIX_URL, API_KEY } from "../constants"
-import { MovieAPIResponse, Movie } from "../types"
+import { useState } from "react"
+import { searchMovies } from "../services/movie"
+import { Movie } from "../types"
 
-export function useMovies(title: string): Movie[] {
+const DEFAULT_MOVIES: Movie[] = []
+
+export function useMovies(query: string, consult: boolean): Movie[] {
     const [movies, setMovies] = useState(DEFAULT_MOVIES)
+    if (!consult) return []
+    const getMovies = async () => {
+        const newMovies = await searchMovies(query)
+        setMovies(newMovies)
+    }
 
-    useEffect(() => {
-        const fetchMoviesData = async () => {
-            const res = await fetch(`${PREFIX_URL}?apikey=${API_KEY}&s=${title}`)
-            const data: MovieAPIResponse = await res.json()
-            if (data.Response === "True") {
-                const movies = data.Search
-                const mappedMovies = movies.map((m): Movie => {
-                    const year = parseInt(m.Year)
-                    return {
-                        id: m.imdbID,
-                        poster: m.Poster,
-                        title: m.Title,
-                        type: m.Type, year
-                    }
-                })
-                setMovies(mappedMovies)
-            } else {
-                setMovies([])
-            }
-        }
-
-        fetchMoviesData()
-    }, [title])
+    getMovies()
 
     return movies
 }
