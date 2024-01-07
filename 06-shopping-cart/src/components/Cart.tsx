@@ -6,12 +6,16 @@ type CartParams = {
     cart: Product[]
     addToCart: (product: Product) => void
     removeFromCart: (product: Product) => void
+    closeCart: () => void
 }
 
-export function Cart({ cart, addToCart, removeFromCart }: CartParams) {
+export function Cart({ cart, addToCart, removeFromCart, closeCart }: CartParams) {
     return (
         < aside className="shopping-cart" >
-            <h4>Shopping Cart</h4>
+            <header>
+                <h4>Shopping Cart</h4>
+                <input type="button" onClick={closeCart} value="❌" />
+            </header>
             {
                 cart &&
                 cart.map((product) => {

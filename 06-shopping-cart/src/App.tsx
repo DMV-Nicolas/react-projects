@@ -3,12 +3,12 @@ import { Cart } from './components/Cart'
 import { Products } from './components/Products'
 import { useCart } from './hooks/useCart'
 import { useProducts } from './hooks/useProducts'
-import { isCartEmpty } from './services/cart'
 
 
 function App() {
   const [minPriceFilter, setMinPriceFilter] = useState(250)
   const [categoryFilter, setCategoryFilter] = useState("all")
+  const [showCart, setShowCart] = useState(false)
   const { products, getProducts } = useProducts()
   const { cart, addToCart, removeFromCart } = useCart()
 
@@ -24,11 +24,16 @@ function App() {
     getProducts(minPriceFilter, newCategoryFilter)
   }
 
+  const handleClickShowCart = () => {
+    setShowCart(!showCart)
+  }
+
   return (
     <div className="page">
       <header>
         <h1>React Shop 🛒</h1>
         <form>
+          <input type="button" onClick={handleClickShowCart} value="🛒" />
           <label htmlFor="minPrice">Price from:</label>
           <input id="minPrice" type="range" min={0} max={1000} value={minPriceFilter} onChange={handleChangeMinPrice} />
           <span>${minPriceFilter}</span>
@@ -48,11 +53,12 @@ function App() {
           removeFromCart={removeFromCart}
         />
       </main>
-      {!isCartEmpty(cart) &&
+      {showCart &&
         <Cart
           cart={cart}
           addToCart={addToCart}
           removeFromCart={removeFromCart}
+          closeCart={handleClickShowCart}
         />
       }
 
