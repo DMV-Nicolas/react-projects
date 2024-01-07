@@ -21,3 +21,8 @@ export async function searchProducts(): Promise<Product[]> {
 export function sortProductsByPrice(products: Product[], price: number): Product[] {
     return products.filter((product) => (product.price >= price))
 }
+
+export function sortProductsByCategory(products: Product[], category: string): Product[] {
+    if (category === "all") return products
+    return products.filter((product) => (product.category === category))
+}
