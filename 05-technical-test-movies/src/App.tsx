@@ -2,13 +2,12 @@ import { useState } from 'react'
 import { Movies } from './components/Movies'
 import { useMovies } from './hooks/useMovies'
 import { useQuery } from './hooks/useQuery'
-import { validQuery } from './services/query'
 import './App.css'
 
 function App() {
   const [sort, setSort] = useState(false)
   const { query, setQuery, error } = useQuery()
-  const { movies, getMovies, resetMovies, loading } = useMovies(sort)
+  const { movies, getMovies, debouncedGetMovies, loading } = useMovies(sort)
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -18,11 +17,7 @@ function App() {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newQuery = e.target.value
     setQuery(newQuery)
-    if (validQuery(newQuery) !== "") {
-      resetMovies()
-    } else {
-      getMovies(newQuery)
-    }
+    debouncedGetMovies(newQuery)
   }
 
   const handleSort = () => {
