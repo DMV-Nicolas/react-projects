@@ -1,7 +1,7 @@
 import { useCallback, useState } from "react";
 import { Product } from "../types";
 import { loadCart, saveCart } from "../services/localStorage";
-
+import { cartIndexOf } from "../services/cart";
 export function useCart() {
     const [cart, setCart] = useState(() => {
         const cart = loadCart()
@@ -17,7 +17,7 @@ export function useCart() {
 
     const removeFromCart = useCallback((product: Product) => {
         const newCart = [...cart]
-        delete (newCart[newCart.indexOf(product)])
+        delete (newCart[cartIndexOf(product, newCart)])
         saveCart(newCart)
         setCart(newCart)
     }, [cart])

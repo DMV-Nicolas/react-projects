@@ -10,6 +10,7 @@ export function isProductOnCart(product: Product, cart: Product[]): boolean {
 
 export function cartIndexOf(product: Product, cart: Product[]): number {
     for (const key in cart) {
+        if (cart[key] === undefined || cart[key] === null) continue
         const i = parseInt(key)
         if (cart[key].id === product.id) return i
     }
