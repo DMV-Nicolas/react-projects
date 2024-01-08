@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Cart } from './components/Cart'
 import { Products } from './components/Products'
+import { Footer } from './components/Footer'
 import { useCart } from './hooks/useCart'
 import { useProducts } from './hooks/useProducts'
 
@@ -61,6 +62,7 @@ function App() {
           closeCart={handleClickShowCart}
         />
       }
+      <Footer filters={{ minPrice: minPriceFilter, category: categoryFilter }} />
 
     </div>
   )
