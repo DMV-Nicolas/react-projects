@@ -31,7 +31,7 @@ function CartItem({ item, addToCart }: CartItemParams) {
 }
 
 export function Cart() {
-    const { cart, addToCart, removeFromCart } = useCart()
+    const { cart, addToCart, clearCart } = useCart()
     const cartCheckBoxID = useId()
     return (
         <>
@@ -53,7 +53,7 @@ export function Cart() {
                         })
                     }
                 </ul>
-                <button>
+                <button onClick={() => clearCart()}>
                     <ClearCartIcon />
                 </button>
             </aside>

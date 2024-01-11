@@ -26,4 +26,5 @@ export type CartContextType = {
     cart: CartItem[]
     addToCart: ({ product }: { product: Product }) => void
     removeFromCart: ({ productID }: { productID: number }) => void
+    clearCart: () => void
 }
