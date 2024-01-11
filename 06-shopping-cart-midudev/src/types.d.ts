@@ -13,7 +13,17 @@ export type Product = {
     images: string[]
 }
 
+export interface CartItem extends Product {
+    quantity: number
+}
+
 export type Filters = {
     category: string
     minPrice: number
+}
+
+export type CartContextType = {
+    cart: CartItem[]
+    addToCart: ({ product }: { product: Product }) => void
+    removeFromCart: ({ productID }: { productID: number }) => void
 }
