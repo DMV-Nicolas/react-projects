@@ -14,7 +14,8 @@ export function Products({ products }: ProductsParams) {
                     <li key={product.id}>
                         <img src={product.image} alt={product.name} />
                         <div>
-                            <strong>{product.name}</strong>
+                            <strong>{product.name} </strong>
+                            <span>- ${product.price}</span>
                         </div>
                         <div>
                             <button>
