@@ -28,3 +28,8 @@ export type CartContextType = {
     removeFromCart: ({ productID }: { productID: number }) => void
     clearCart: () => void
 }
+
+export type FiltersContextType = {
+    filters: Filters,
+    setFilters: React.Dispatch<React.SetStateAction<Filters>>
+}
