@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react"
+import { useState, useEffect, Children } from "react"
 import { EVENTS } from "../constants"
 import { match } from "path-to-regexp"
 
@@ -12,7 +12,7 @@ type RouterParams = {
     defaultComponent: () => JSX.Element
 }
 
-export function Router({ routes = [], defaultComponent: DefaultComponent = () => <></> }: RouterParams) {
+export function Router({ routes = [], defaultComponent: DefaultComponent = () => <></>, children }: RouterParams) {
     const [page, setPage] = useState(window.location.pathname)
 
     useEffect(() => {
@@ -29,9 +29,16 @@ export function Router({ routes = [], defaultComponent: DefaultComponent = () =>
         }
     }, [])
 
-    let routeParams = {}
+    const routesFromChildren = Children.map(children, ({ props, type }) => {
+        const { name } = type
+        const isRoute = name === 'Route'
+        return isRoute ? props : null
+    })
 
-    const Page = routes.find(({ path }) => {
+    const routesToUse = routes.concat(routesFromChildren).filter(Boolean)
+
+    let routeParams = {}
+    const Page = routesToUse.find(({ path }) => {
         if (path === page) return true
 
         const matcherUrl = match(path, { decode: decodeURIComponent })
