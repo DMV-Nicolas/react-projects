@@ -9,7 +9,7 @@ function navigate(href: string) {
 type LinkParams = {
     target?: string
     to: string
-    props: any
+    children?: string | JSX.Element
 }
 
 export function Link({ target, to, ...props }: LinkParams) {
