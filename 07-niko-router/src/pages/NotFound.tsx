@@ -1,6 +1,6 @@
 import { Link } from "../components/Link";
 
-export default function NotFound() {
+export default function NotFoundPage() {
     return (
         <>
             <h1>404</h1>

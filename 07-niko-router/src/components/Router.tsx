@@ -4,12 +4,13 @@ import { match } from "path-to-regexp"
 
 type RouteType = {
     path: string
-    component: () => JSX.Element
+    component: (() => JSX.Element) | (React.LazyExoticComponent<() => JSX.Element>)
 }
 
 type RouterParams = {
-    routes: RouteType[]
-    defaultComponent: () => JSX.Element
+    routes?: RouteType[]
+    defaultComponent: (() => JSX.Element) | (React.LazyExoticComponent<() => JSX.Element>)
+    children: JSX.Element[] | JSX.Element
 }
 
 export function Router({ routes = [], defaultComponent: DefaultComponent = () => <></>, children }: RouterParams) {

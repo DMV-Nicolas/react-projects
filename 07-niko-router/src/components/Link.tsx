@@ -9,7 +9,7 @@ function navigate(href: string) {
 type LinkParams = {
     target?: string
     to: string
-    children?: string | JSX.Element
+    component?: string | (() => JSX.Element) | (React.LazyExoticComponent<() => JSX.Element>)
 }
 
 export function Link({ target, to, ...props }: LinkParams) {
