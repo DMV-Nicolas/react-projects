@@ -9,6 +9,7 @@ import { Col, Container, Row, Button, Stack } from "react-bootstrap"
 import "bootstrap/dist/css/bootstrap.min.css"
 import "./App.css"
 import { useEffect } from "react"
+import { translate } from "./services/translate"
 
 
 function App() {
@@ -24,6 +25,16 @@ function App() {
         setToText,
         interchangeLanguages
     } = useTranslate()
+
+    useEffect(() => {
+        const getTranslate = async () => {
+            const traduction = await translate({ fromLanguage, toLanguage, text: fromText })
+            if (traduction == null) return
+            setToText(traduction)
+        }
+
+        getTranslate()
+    }, [fromText, fromLanguage, toLanguage, setToText])
 
     return (
         <Container fluid>
