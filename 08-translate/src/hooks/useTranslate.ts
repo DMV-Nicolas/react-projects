@@ -39,14 +39,16 @@ function reducer(state: TranslateState, action: TranslateAction) {
     if (type === "SET_FROM_TEXT") {
         return {
             ...state,
-            fromText: action.payload
+            fromText: action.payload,
+            loading: true
         }
     }
 
     if (type === "SET_TO_TEXT") {
         return {
             ...state,
-            toText: action.payload
+            toText: action.payload,
+            loading: false
         }
     }
 

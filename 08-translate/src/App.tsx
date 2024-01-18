@@ -2,11 +2,13 @@ import { useTranslate } from "./hooks/useTranslate"
 import { ArrowsIcon } from "./components/Icons"
 import { LanguageSelector } from "./components/LanguageSelector"
 import { TextArea } from "./components/TextArea"
+import { Footer } from "./components/Footer"
 import { AUTO_LANGUAGE } from "./constants"
 import { SectionType } from "./types.d"
 import { Col, Container, Row, Button, Stack } from "react-bootstrap"
 import "bootstrap/dist/css/bootstrap.min.css"
 import "./App.css"
+import { useEffect } from "react"
 
 
 function App() {
@@ -22,6 +24,7 @@ function App() {
         setToText,
         interchangeLanguages
     } = useTranslate()
+
     return (
         <Container fluid>
             <h2>Translate</h2>
@@ -68,6 +71,13 @@ function App() {
                     </Stack>
                 </Col>
             </Row>
+            <Footer
+                loading={loading}
+                fromLanguage={fromLanguage}
+                toLanguage={toLanguage}
+                fromText={fromText}
+                toText={toText}
+            />
         </Container>
     )
 }
