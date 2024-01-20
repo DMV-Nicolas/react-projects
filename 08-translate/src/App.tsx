@@ -6,11 +6,11 @@ import { Footer } from "./components/Footer"
 import { AUTO_LANGUAGE } from "./constants"
 import { SectionType } from "./types.d"
 import { Col, Container, Row, Button, Stack } from "react-bootstrap"
-import "bootstrap/dist/css/bootstrap.min.css"
-import "./App.css"
 import { useEffect } from "react"
 import { translate } from "./services/translate"
 import { useDebounce } from "./hooks/useDebounce"
+import "bootstrap/dist/css/bootstrap.min.css"
+import "./App.css"
 
 
 function App() {

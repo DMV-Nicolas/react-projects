@@ -7,14 +7,13 @@ export function useDebounce<T>(value: T, delay = 500) {
     const valuePriority = priority.current
 
     useEffect(() => {
-        const timer = setTimeout(() => {
+        setTimeout(() => {
             if (valuePriority === priority.current) {
                 setDebouncedValue(value)
             }
 
         }, delay)
 
-        return () => { clearTimeout(timer) }
     }, [value, delay])
 
 

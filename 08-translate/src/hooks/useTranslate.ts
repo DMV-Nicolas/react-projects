@@ -17,8 +17,11 @@ function reducer(state: TranslateState, action: TranslateAction) {
         if (state.fromLanguage === AUTO_LANGUAGE) return state
         return {
             ...state,
+            loading: true,
             fromLanguage: state.toLanguage,
-            toLanguage: state.fromLanguage
+            toLanguage: state.fromLanguage,
+            fromText: state.toText,
+            toText: state.fromText
         }
     }
 
