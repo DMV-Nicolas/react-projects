@@ -1,9 +1,8 @@
 import { AUTO_LANGUAGE, SUPPORTED_LANGUAGES } from "../constants"
 import { FromLanguage, ToLanguage } from "../types"
 import { OpenAI } from "openai"
-import { getApiKey } from "./getApiKey"
 
-const openai = new OpenAI({ apiKey: getApiKey(), dangerouslyAllowBrowser: true })
+const openai = new OpenAI({ apiKey: import.meta.env.VITE_OPENAI_API_KEY, dangerouslyAllowBrowser: true })
 
 type Props = {
     fromLanguage: FromLanguage
@@ -13,7 +12,8 @@ type Props = {
 
 export async function translate({ fromLanguage, toLanguage, text }: Props) {
     if (text === "") return
-    console.log("Request")
+    // we dont have api key :D
+    return "Hello world"
     const messages: OpenAI.ChatCompletionMessageParam[] = [
         {
             role: "system",
@@ -61,5 +61,6 @@ export async function translate({ fromLanguage, toLanguage, text }: Props) {
         ]
     });
 
-    return completion.choices[0]?.message?.content
+
+    return completion.choices[0]?.message?.content || "XD"
 }
