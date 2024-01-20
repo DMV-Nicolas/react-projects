@@ -10,6 +10,7 @@ import "bootstrap/dist/css/bootstrap.min.css"
 import "./App.css"
 import { useEffect } from "react"
 import { translate } from "./services/translate"
+import { useDebounce } from "./hooks/useDebounce"
 
 
 function App() {
@@ -26,15 +27,20 @@ function App() {
         interchangeLanguages
     } = useTranslate()
 
+    const debouncedFromText = useDebounce(fromText, 500)
+
     useEffect(() => {
         const getTranslate = async () => {
-            const traduction = await translate({ fromLanguage, toLanguage, text: fromText })
-            if (traduction == null) return
-            setToText(traduction)
+            const traduction = await translate({ fromLanguage, toLanguage, text: debouncedFromText })
+            if (traduction == null) {
+                setToText("")
+            } else {
+                setToText(traduction)
+            }
         }
 
         getTranslate()
-    }, [fromText, fromLanguage, toLanguage, setToText])
+    }, [debouncedFromText, fromLanguage, toLanguage])
 
     return (
         <Container fluid>

@@ -13,7 +13,7 @@ type Props = {
 
 export async function translate({ fromLanguage, toLanguage, text }: Props) {
     if (text === "") return
-    console.log("Request")
+    return "XD"
     const messages: OpenAI.ChatCompletionMessageParam[] = [
         {
             role: "system",
@@ -61,5 +61,6 @@ export async function translate({ fromLanguage, toLanguage, text }: Props) {
         ]
     });
 
-    return completion.choices[0]?.message?.content
+
+    return completion.choices[0]?.message?.content || "XD"
 }
