@@ -13,7 +13,7 @@ type Props = {
 export async function translate({ fromLanguage, toLanguage, text }: Props) {
     if (text === "") return
     // we dont have api key :D
-    return Math.round(Math.random() * 100).toString()
+    return "Hello world"
     const messages: OpenAI.ChatCompletionMessageParam[] = [
         {
             role: "system",

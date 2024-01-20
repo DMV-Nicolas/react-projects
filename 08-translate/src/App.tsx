@@ -48,8 +48,8 @@ function App() {
     }
 
     const handleSpeak = () => {
-        const utterance = new SpeechSynthesisUtterance("Hello")
-        utterance.lang = "en-US"
+        const utterance = new SpeechSynthesisUtterance(toText)
+        utterance.lang = LANGUAGE_FOR_VOICE[toLanguage]
         window.speechSynthesis.speak(utterance)
     }
 
