@@ -3,10 +3,12 @@ import { useTodos } from '../hooks/useTodos'
 
 export const Footer = (): JSX.Element => {
   const { todos } = useTodos()
+  const activeTodosCount = todos.filter((todo) => !todo.completed).length
+
   return (
     <footer className="footer">
       <span className="todo-count">
-        <strong>{todos.length}</strong> tareas pendientes
+        <strong>{activeTodosCount}</strong> tareas pendientes
       </span>
       <Filters />
     </footer>
