@@ -7,7 +7,7 @@ export const TodoList = (): JSX.Element => {
   return (
     <ul className='todo-list'>
       {filteredTodos.map((todo) => (
-        <li key={todo.id}>
+        <li className={todo.completed ? 'completed' : ''} key={todo.id}>
           <Todo
             key={todo.id}
             id={todo.id}
