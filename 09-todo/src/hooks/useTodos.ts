@@ -8,6 +8,14 @@ export const useTodos = (): TodosContext => {
     throw new Error('Error to use context')
   }
 
-  const { todos, filter, filteredTodos, createTodo, removeTodo, toggleTodo, changeFilter } = context
-  return { todos, filter, filteredTodos, createTodo, removeTodo, toggleTodo, changeFilter }
+  return {
+    todos: context.todos,
+    filter: context.filter,
+    filteredTodos: context.filteredTodos,
+    createTodo: context.createTodo,
+    removeTodo: context.removeTodo,
+    toggleTodo: context.toggleTodo,
+    removeCompletedTodos: context.removeCompletedTodos,
+    changeFilter: context.changeFilter
+  }
 }

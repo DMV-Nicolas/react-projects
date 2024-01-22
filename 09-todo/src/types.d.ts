@@ -13,6 +13,7 @@ export interface TodosContext {
   createTodo: (title: string) => void
   removeTodo: (id: string) => void
   toggleTodo: (id: string) => void
+  removeCompletedTodos: () => void
   changeFilter: (newFilter: FilterValue) => void
 }
 

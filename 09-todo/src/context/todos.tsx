@@ -35,6 +35,11 @@ export const TodoProvider = ({ children }: { children?: React.ReactNode }): JSX.
     setTodos(newTodos)
   }
 
+  const removeCompletedTodos = (): void => {
+    const newTodos = todos.filter((todo) => !todo.completed)
+    setTodos(newTodos)
+  }
+
   const changeFilter = (newFilter: FilterValue): void => {
     setFilter(newFilter)
   }
@@ -61,6 +66,7 @@ export const TodoProvider = ({ children }: { children?: React.ReactNode }): JSX.
       createTodo,
       removeTodo,
       toggleTodo,
+      removeCompletedTodos,
       changeFilter
     }}>
       {children}
