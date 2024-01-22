@@ -1,29 +1,16 @@
-import { createContext, useState } from 'react'
-import { type TodoType, type TodosContext } from '../types'
+import { createContext, useEffect, useState } from 'react'
 import { getRandomID } from '../services/random'
-
-const mockTodos: TodoType[] = [
-  {
-    id: '1',
-    title: 'Complete react router course',
-    completed: false
-  },
-  {
-    id: '2',
-    title: 'Drink water',
-    completed: true
-  },
-  {
-    id: '3',
-    title: 'write a calendar',
-    completed: false
-  }
-]
+import { TODO_FILTERS } from '../constants'
+import { todos as mockTodos } from '../mocks/data.json'
+import { type FilterValue, type TodoType, type TodosContext } from '../types'
+import { getFilterURLParam } from '../services/filter'
 
 export const todosContext = createContext<TodosContext | null>(null)
 
 export const TodoProvider = ({ children }: { children?: React.ReactNode }): JSX.Element => {
-  const [todos, setTodos] = useState(mockTodos)
+  const [todos, setTodos] = useState<TodoType[]>(mockTodos)
+  const [filter, setFilter] = useState<FilterValue>(getFilterURLParam())
+  const [filteredTodos, setFilteredTodos] = useState([...todos])
 
   const createTodo = (title: string): void => {
     const newTodos = [...todos]
@@ -48,8 +35,34 @@ export const TodoProvider = ({ children }: { children?: React.ReactNode }): JSX.
     setTodos(newTodos)
   }
 
+  const changeFilter = (newFilter: FilterValue): void => {
+    setFilter(newFilter)
+  }
+
+  useEffect(() => {
+    if (filter === TODO_FILTERS.ALL) setFilteredTodos([...todos])
+
+    if (filter === TODO_FILTERS.ACTIVE) {
+      const newFilteredTodos = todos.filter((todo) => !todo.completed)
+      setFilteredTodos(newFilteredTodos)
+    }
+
+    if (filter === TODO_FILTERS.COMPLETED) {
+      const newFilteredTodos = todos.filter((todo) => todo.completed)
+      setFilteredTodos(newFilteredTodos)
+    }
+  }, [filter, todos])
+
   return (
-    <todosContext.Provider value={{ todos, createTodo, removeTodo, toggleTodo }}>
+    <todosContext.Provider value={{
+      todos,
+      filter,
+      filteredTodos,
+      createTodo,
+      removeTodo,
+      toggleTodo,
+      changeFilter
+    }}>
       {children}
     </todosContext.Provider>
   )

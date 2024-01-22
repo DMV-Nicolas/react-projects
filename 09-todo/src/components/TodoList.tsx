@@ -2,11 +2,11 @@ import { useTodos } from '../hooks/useTodos'
 import { Todo } from './Todo'
 
 export const TodoList = (): JSX.Element => {
-  const { todos } = useTodos()
+  const { filteredTodos } = useTodos()
 
   return (
     <ul className='todo-list'>
-      {todos.map((todo) => (
+      {filteredTodos.map((todo) => (
         <li key={todo.id}>
           <Todo
             key={todo.id}
