@@ -6,10 +6,9 @@ export const Filters = (): JSX.Element => {
   const { filter, changeFilter } = useTodos()
 
   const handleClick = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>, key: FilterValue): void => {
+    if (!(e.target instanceof HTMLAnchorElement)) return
     e.preventDefault()
-    if (e.target instanceof HTMLAnchorElement) {
-      window.history.pushState({}, '', e.target.href)
-    }
+    window.history.pushState({}, '', e.target.href)
     changeFilter(key)
   }
 
