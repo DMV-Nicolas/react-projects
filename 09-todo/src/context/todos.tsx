@@ -1,5 +1,4 @@
 import { createContext, useEffect, useState } from 'react'
-import { getRandomID } from '../services/random'
 import { TODO_FILTERS } from '../constants'
 import { todos as mockTodos } from '../mocks/data.json'
 import { type FilterValue, type TodoType, type TodosContext } from '../types'
@@ -15,7 +14,7 @@ export const TodoProvider = ({ children }: { children?: React.ReactNode }): JSX.
   const createTodo = (title: string): void => {
     const newTodos = [...todos]
     newTodos.push({
-      id: getRandomID(16),
+      id: window.crypto.randomUUID(),
       title,
       completed: false
     })

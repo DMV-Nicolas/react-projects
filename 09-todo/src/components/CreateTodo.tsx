@@ -7,6 +7,7 @@ export const CreateTodo = (): JSX.Element => {
     if (e.key === 'Enter') {
       if (!(e.target instanceof HTMLInputElement)) return
       createTodo(e.target.value)
+      e.target.value = ''
     }
   }
 
