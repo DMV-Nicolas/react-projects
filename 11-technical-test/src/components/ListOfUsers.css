@@ -1,0 +1,27 @@
+.listOfUsers {
+    width: 100%;
+}
+
+.listOfUsers thead td {
+    cursor: pointer;
+}
+
+.listOfUsers td {
+    border: none;
+}
+
+.listOfUsers img {
+    width: 50px;
+}
+
+.listOfUsers .colored {
+    background-color: #303030;
+}
+
+.listOfUsers .colored:nth-child(even) {
+    background-color: #252525;
+}
+
+.listOfUsers tr:nth-child(even) {
+    background-color: transparent;
+}
