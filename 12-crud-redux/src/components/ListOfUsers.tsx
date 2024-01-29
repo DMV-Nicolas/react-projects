@@ -6,123 +6,64 @@ import {
   TableHead,
   TableHeaderCell,
   TableBody,
-  BadgeDelta,
-  MultiSelect,
-  MultiSelectItem
+  Title
 } from '@tremor/react'
 
-const salesPeople = [
+const users = [
   {
-    name: 'Peter Doe',
-    leads: 45,
-    sales: '1,000,000',
-    quota: '1,200,000',
-    variance: 'low',
-    region: 'Region A',
-    status: 'overperforming',
-    deltaType: 'moderateIncrease'
+    id: '1',
+    name: 'Nicolas Moreno',
+    email: 'dmvnicolas@gmail.com',
+    github: 'dmvnicolas'
   },
   {
-    name: 'Lena Whitehouse',
-    leads: 35,
-    sales: '900,000',
-    quota: '1,000,000',
-    variance: 'low',
-    region: 'Region B',
-    status: 'average',
-    deltaType: 'unchanged'
+    id: '2',
+    name: 'Agustin Laje',
+    email: 'agustinlaje@gmail.com',
+    github: 'agustinlaje'
   },
   {
-    name: 'Phil Less',
-    leads: 52,
-    sales: '930,000',
-    quota: '1,000,000',
-    variance: 'medium',
-    region: 'Region C',
-    status: 'underperforming',
-    deltaType: 'moderateDecrease'
-  },
-  {
-    name: 'John Camper',
-    leads: 22,
-    sales: '390,000',
-    quota: '250,000',
-    variance: 'low',
-    region: 'Region A',
-    status: 'overperforming',
-    deltaType: 'increase'
-  },
-  {
-    name: 'Max Balmoore',
-    leads: 49,
-    sales: '860,000',
-    quota: '750,000',
-    variance: 'low',
-    region: 'Region B',
-    status: 'overperforming',
-    deltaType: 'increase'
-  },
-  {
-    name: 'Peter Moore',
-    leads: 82,
-    sales: '1,460,000',
-    quota: '1,500,000',
-    variance: 'low',
-    region: 'Region A',
-    status: 'average',
-    deltaType: 'unchanged'
-  },
-  {
-    name: 'Joe Sachs',
-    leads: 49,
-    sales: '1,230,000',
-    quota: '1,800,000',
-    variance: 'medium',
-    region: 'Region B',
-    status: 'underperforming',
-    deltaType: 'moderateDecrease'
+    id: '3',
+    name: 'Maduro Podcast',
+    email: 'nicolasmaduro@gmail.com',
+    github: 'nicolasmaduro'
   }
 ]
 
 export default function ListOfUsers() {
   return (
     <Card>
-      <MultiSelect
-        placeholder="Select Salespeople..."
-        className="max-w-xs"
-      >
-        {salesPeople.map((item) => (
-          <MultiSelectItem key={item.name} value={item.name}>
-            {item.name}
-          </MultiSelectItem>
-        ))}
-      </MultiSelect>
+      <Title>Users {users.length}</Title>
       <Table className="mt-6">
         <TableHead>
           <TableRow>
             <TableHeaderCell>Name</TableHeaderCell>
-            <TableHeaderCell className="text-right">Leads</TableHeaderCell>
-            <TableHeaderCell className="text-right">Sales ($)</TableHeaderCell>
-            <TableHeaderCell className="text-right">Quota ($)</TableHeaderCell>
-            <TableHeaderCell className="text-right">Variance</TableHeaderCell>
-            <TableHeaderCell className="text-right">Region</TableHeaderCell>
-            <TableHeaderCell className="text-right">Status</TableHeaderCell>
+            <TableHeaderCell>Email</TableHeaderCell>
+            <TableHeaderCell>Github</TableHeaderCell>
+            <TableHeaderCell>Actions</TableHeaderCell>
           </TableRow>
         </TableHead>
 
         <TableBody>
-          {salesPeople.map((item) => (
-            <TableRow key={item.name}>
-              <TableCell>{item.name}</TableCell>
-              <TableCell className="text-right">{item.leads}</TableCell>
-              <TableCell className="text-right">{item.sales}</TableCell>
-              <TableCell className="text-right">{item.quota}</TableCell>
-              <TableCell className="text-right">{item.variance}</TableCell>
-              <TableCell className="text-right">{item.region}</TableCell>
-              <TableCell className="text-right">
-                <BadgeDelta deltaType={item.deltaType} size="xs">
-                  {item.status}
-                </BadgeDelta>
+          {users.map((item) => (
+            <TableRow key={item.id}>
+              <TableCell style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                <img width={45} height={45} src={`https://unavatar.io/github/${item.github}`} alt={`Github avatar of ${item.github}`} />
+                {item.name}
+              </TableCell>
+              <TableCell>{item.email}</TableCell>
+              <TableCell>{item.github}</TableCell>
+              <TableCell>
+                <button>
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" />
+                  </svg>
+                </button>
+                <button>
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
+                  </svg>
+                </button>
               </TableCell>
             </TableRow>
           ))}
