@@ -1,3 +1,10 @@
+export enum SortBy {
+  NONE = 'none',
+  NAME = 'name',
+  LASTNAME = 'lastname',
+  COUNTRY = 'country'
+}
+
 export interface ApiData {
   results: User[]
   info: Info

@@ -1,21 +1,21 @@
-import { useEffect, useRef, useState } from 'react'
-import { type User, type ApiData } from './types'
+import { useEffect, useRef, useState, useMemo } from 'react'
+import { type User, type ApiData, SortBy } from './types.d'
 import { UsersList } from './components/UsersList'
 import './App.css'
 
 function App() {
   const [users, setUsers] = useState<User[]>([])
   const [showColors, setShowColors] = useState(false)
-  const [sortByCountry, setSortByCountry] = useState(false)
-  const [filterCountry, setFilterCountry] = useState('')
+  const [sorting, setSorting] = useState(SortBy.NONE)
+  const [filterByCountry, setFilterByCountry] = useState('')
   const originalUsers = useRef<User[]>([])
 
   const toggleColors = () => {
     setShowColors(!showColors)
   }
 
-  const toggleSortByCountry = () => {
-    setSortByCountry((prevState) => !prevState)
+  const handleChangeSorting = (sortBy: SortBy) => {
+    sorting === sortBy ? setSorting(SortBy.NONE) : setSorting(sortBy)
   }
 
   const handleDelete = (email: string) => {
@@ -30,7 +30,7 @@ function App() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await fetch('https://randomuser.me/api/?results=200')
+        const res = await fetch('https://randomuser.me/api/?results=100')
         const data: ApiData = await res.json()
         const results = data.results
         setUsers(results)
@@ -43,33 +43,58 @@ function App() {
     fetchData()
   }, [])
 
-  const filteredUsers = users.filter((user) => (
-    user.location.country.toLowerCase().includes(filterCountry.toLowerCase())
-  ))
+  const filteredUsers = useMemo(() => {
+    return filterByCountry.length > 0
+      ? users.filter((user) => (
+        user.location.country.toLowerCase().includes(filterByCountry.toLowerCase())
+      ))
+      : users
+  }, [users, filterByCountry])
 
-  const sortedUsers = sortByCountry
-    ? filteredUsers.toSorted((a, b) => {
-      return a.location.country.localeCompare(b.location.country)
-    })
-    : filteredUsers
+  const sortedUsers = useMemo(() => {
+    if (sorting === SortBy.COUNTRY) {
+      return filteredUsers.toSorted((a, b) => {
+        return a.location.country.localeCompare(b.location.country)
+      })
+    }
+
+    if (sorting === SortBy.NAME) {
+      return filteredUsers.toSorted((a, b) => {
+        return a.name.first.localeCompare(b.name.first)
+      })
+    }
+
+    if (sorting === SortBy.LASTNAME) {
+      return filteredUsers.toSorted((a, b) => {
+        return a.name.last.localeCompare(b.name.last)
+      })
+    }
+
+    return filteredUsers
+  }, [filteredUsers, sorting])
 
   return (
     <div className="app">
       <h1>Technical test</h1>
       <header>
         <button onClick={toggleColors}>Colorear filas</button>
-        <button onClick={toggleSortByCountry}>
-          {sortByCountry ? 'No ordenar por pais' : 'Ordenar por pais'}
+        <button onClick={() => { handleChangeSorting(SortBy.COUNTRY) }}>
+          {sorting === SortBy.COUNTRY ? 'No ordenar por pais' : 'Ordenar por pais'}
         </button>
         <button onClick={handleReset}>
           Resetear estado
         </button>
         <input type="text" placeholder='Filtrar por pais' onChange={(e) => {
-          setFilterCountry(e.target.value)
+          setFilterByCountry(e.target.value)
         }} />
       </header>
       <main>
-        <UsersList users={sortedUsers} showColors={showColors} deleteUser={handleDelete} />
+        <UsersList
+          users={sortedUsers}
+          showColors={showColors}
+          deleteUser={handleDelete}
+          changeSorting={handleChangeSorting}
+        />
       </main>
     </div>
   )
