@@ -1,5 +1,5 @@
 import { type PayloadAction, createSlice } from '@reduxjs/toolkit'
-import { type UserID, type UserWithID } from '../../types'
+import { type User, type UserID, type UserWithID } from '../../types'
 
 const defaultUsers: UserWithID[] = [
   {
@@ -22,7 +22,7 @@ const defaultUsers: UserWithID[] = [
   }
 ]
 
-const initialState = (() => {
+const initialState: UserWithID[] = (() => {
   const usersData = localStorage.getItem('usersData')
   if (usersData !== null) return JSON.parse(usersData).users
   return defaultUsers
@@ -35,10 +35,17 @@ export const usersSlice = createSlice({
     deleteUserByID: (state, action: PayloadAction<UserID>) => {
       const id = action.payload
       return state.filter((user) => user.id !== id)
+    },
+    createUser: (state, action: PayloadAction<User>) => {
+      const newUser: UserWithID = {
+        ...action.payload,
+        id: crypto.randomUUID()
+      }
+      return [...state, newUser]
     }
   }
 })
 
-export const { deleteUserByID } = usersSlice.actions
+export const { deleteUserByID, createUser } = usersSlice.actions
 
 export default usersSlice.reducer

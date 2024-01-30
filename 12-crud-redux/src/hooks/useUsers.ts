@@ -1,7 +1,7 @@
 import { useDispatch } from 'react-redux'
 import { useAppSelector } from './store'
-import { type UserID } from '../types'
-import { deleteUserByID } from '../stores/users/slice'
+import { type User, type UserID } from '../types'
+import { createUser, deleteUserByID } from '../stores/users/slice'
 export function useUsers() {
   const users = useAppSelector(state => state.users)
   const dispatch = useDispatch()
@@ -10,5 +10,9 @@ export function useUsers() {
     dispatch(deleteUserByID(id))
   }
 
-  return { users, handleDeleteUser }
+  const handleCreateUser = (user: User) => {
+    dispatch(createUser(user))
+  }
+
+  return { users, handleDeleteUser, handleCreateUser }
 }
