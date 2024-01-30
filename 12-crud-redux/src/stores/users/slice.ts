@@ -42,10 +42,16 @@ export const usersSlice = createSlice({
         id: crypto.randomUUID()
       }
       return [...state, newUser]
+    },
+    rollbackUser: (state, action: PayloadAction<UserWithID>) => {
+      const isUserAlreadyDefined = state.some((user) => user.id === action.payload.id)
+      if (!isUserAlreadyDefined) {
+        return [...state, action.payload]
+      }
     }
   }
 })
 
-export const { deleteUserByID, createUser } = usersSlice.actions
+export const { deleteUserByID, createUser, rollbackUser } = usersSlice.actions
 
 export default usersSlice.reducer

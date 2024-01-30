@@ -44,9 +44,7 @@ export function CreateNewUser() {
             Crear usuario
           </Button>
           <span>
-            {result === 'ok' && (
-              <Badge color='green'>Guardado correctamente</Badge>
-            )}
+            {result === 'ok' && <Badge color='green'>Guardado correctamente</Badge>}
             {result === 'ko' && <Badge color='red'>Error con los campos</Badge>}
           </span>
         </div>
