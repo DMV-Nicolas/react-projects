@@ -22,21 +22,19 @@ export function UsersList({ users, showColors, deleteUser, changeSorting }: Prop
         </tr>
       </thead>
       <tbody className={tbodyClassName}>
-        {users.map((user) => {
-          return (
-            <tr key={user.email}>
-              <td>
-                <img src={user.picture.thumbnail} alt={`${user.name.first} Image extracted of randomuser API`} />
-              </td>
-              <td>{user.name.first}</td>
-              <td>{user.name.last}</td>
-              <td>{user.location.country}</td>
-              <td>
-                <button onClick={() => { deleteUser(user.email) }}>Eliminar</button>
-              </td>
-            </tr>
-          )
-        })}
+        {users.map((user) => (
+          <tr key={user.email}>
+            <td>
+              <img src={user.picture.thumbnail} alt={`${user.name.first} Image extracted of randomuser API`} />
+            </td>
+            <td>{user.name.first}</td>
+            <td>{user.name.last}</td>
+            <td>{user.location.country}</td>
+            <td>
+              <button onClick={() => { deleteUser(user.email) }}>Eliminar</button>
+            </td>
+          </tr>
+        ))}
       </tbody>
     </table>
   )
